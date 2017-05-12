@@ -13,6 +13,9 @@ namespace App.Gwin.Components.Manager.Fields.Traitements.Params
     {
         public Control FromContainer { get;  set; }
         public Dictionary<string, object> CritereRechercheFiltre { get;  set; }
-
+        /// <summary>
+        /// Action : Update or Add
+        /// </summary>
+        public BaseEntryForm.EntityActions EntityAction { get;  set; }
     }
 }

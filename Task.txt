@@ -1,13 +1,16 @@
-Defaukt User Creation : in First Update-DataBase Root user dont take root Role
+// 
+// Bug
+//
+-Defaukt User Creation : in First Update-DataBase Root user dont take root Role
             // When I remove Root user, after Update-DataBase the user root take root role 
+-Right to Lift in Filter not work for Arabe Langauge
+-Exception after saveCahgne after delete Project with Task
 
-Right to Lift in Filter not work for Arabe Langauge
-Validateur : Type Int dont work
+//
+// Upgrade
+//
+-Validation : Validateur : Type Int dont work
+-PhotoField Creation
+-Backup DataBase
+-Printer solution
 
-
-Add GroupBox Order in EntryForm
-
-DateTimePiker with Arabe Value dont work
-
-Update : 
-Add Configuration to Disply Date in Arabe Langauge : Show Arabe Date or Latin Date

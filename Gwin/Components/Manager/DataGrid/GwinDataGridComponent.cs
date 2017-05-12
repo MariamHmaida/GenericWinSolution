@@ -18,6 +18,8 @@ using App.Gwin.Components.Manager.Fields.Traitements.Params;
 using App.Gwin.FieldsTraitements;
 using App.Gwin.Exceptions.Gwin;
 using App.Gwin.Exceptions.Helpers;
+using App.Gwin.Components.Manager.DataGrid;
+using App.Gwin.Application.Presentation.EntityManagement;
 
 namespace App.Gwin
 {
@@ -129,11 +131,13 @@ namespace App.Gwin
         private void _Insert_Column_In_DataGrid()
         {
             int index_colonne = 0;
+
+            // Create Properties Columns
             foreach (PropertyInfo propertyInfo in this.ShownEntityProperties)
             {
                 ConfigProperty configProperty = new ConfigProperty(propertyInfo, this.EntityBLO.ConfigEntity);
 
-                // Insertion des la colonne selon le tupe de la propriété
+                //Insert Column according to its Type 
                 DataGridViewColumn colonne = new DataGridViewTextBoxColumn(); ;
                 index_colonne++;
 
@@ -148,8 +152,26 @@ namespace App.Gwin
                 fieldTraitement.ConfigFieldColumn_In_EntityDataGrid(param);
 
                 // Insert Column in DataGriView
-                this.dataGridView.Columns.Insert(index_colonne, colonne);
+                this.dataGridView.Columns.Insert(index_colonne, param.Column);
             }
+
+            // Create SelectedAction Columns in Last of columns
+            if(this.EntityBLO.ConfigEntity.ListDataGridSelectedAction != null)
+                foreach (DataGridSelectedActionAttribute item in this.EntityBLO.ConfigEntity.ListDataGridSelectedAction)
+                {
+                    index_colonne++;
+                    DataGridViewButtonColumn colonne = new DataGridViewButtonColumn();
+
+                    colonne.HeaderText = item.Title;
+                    colonne.Text = item.Title;
+                    colonne.Name = item.TypeOfForm.FullName;
+                    colonne.Tag = item;
+                    colonne.ToolTipText = item.Description;
+                    colonne.UseColumnTextForButtonValue = true;
+                   
+                    // Insert Column in DataGriView
+                    this.dataGridView.Columns.Insert(index_colonne, colonne);
+                }
         }
 
         /// <summary>
@@ -190,6 +212,24 @@ namespace App.Gwin
                     onEditManyToMany_Creation(this, e);
                 }
             }
+
+            // ActionClikc for DataGridSeletedAction
+            if (this.EntityBLO.ConfigEntity.ListDataGridSelectedAction != null)
+                foreach (DataGridSelectedActionAttribute item in this.EntityBLO.ConfigEntity.ListDataGridSelectedAction)
+                {
+                    if (e.ColumnIndex == dataGridView.Columns[item.TypeOfForm.FullName].Index && e.RowIndex >= 0)
+                    {
+                        // Create TraitementAtionForm Instance
+                        IFormSelectedEntityAction Form = Activator.CreateInstance(item.TypeOfForm) as IFormSelectedEntityAction;
+                        Form.SetEntity(obj);
+
+                        // Show Form In MDI Application
+                        CreateAndShowManagerFormHelper ShowManagerFormHelper = new CreateAndShowManagerFormHelper(GwinApp.Instance.TypeDBContext,GwinApp.Instance.FormApplication);
+                        ShowManagerFormHelper.ShwoForm(Form as Form);
+
+                    }
+                }
+
         }
 
         private void dataGridView_KeyDown(object sender, KeyEventArgs e)

@@ -34,7 +34,7 @@ namespace GenericWinForm.Demo.BAL
                 //[BL] the name mut be UperCase
                 case nameof(TaskProject.Title):
                     {
-                        entityMiniConfig.Title = entityMiniConfig.Title.ToUpper();
+                        entityMiniConfig.Title.Current = entityMiniConfig.Title.Current.ToUpper();
                     }
                     break;
             }

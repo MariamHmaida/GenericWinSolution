@@ -61,6 +61,15 @@ namespace GenericWinForm.Demo.Entities.Resources.TaskProject {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tasks Manager.
+        /// </summary>
+        internal static string form_title {
+            get {
+                return ResourceManager.GetString("form_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Tasks.
         /// </summary>
         internal static string PluralName {

@@ -137,8 +137,10 @@
                   Project = new Project() { Id = 1, Title = "Entity_OneToMany" },
                   Categoy = TaskCategory.Analysis,
                   DaysNumber = 3,
-                  Title = "Create Uses Cases Diagrame",
-                  Description = "Create UML Uses Cases Diagrams for Club Management system",
+                  Title = new Gwin.Entities.MultiLanguage.LocalizedString() { French = "Create Uses Cases Diagrame" },
+     
+                  Description = new Gwin.Entities.MultiLanguage.LocalizedString() { Arab = "تحليل وظيفي", French = "Create UML Uses Cases Diagrams for Club Management system" },
+                  
                   LocalizedTitle = new Gwin.Entities.MultiLanguage.LocalizedString() { Arab = "تحليل وظيفي", French = "Analyse fonctionnelle" },
                   Peoples = new List<Individual>() {
                       new Individual() { LastName = new LocalizedString() {Current = "Mouad" },FirstName = new LocalizedString() {Current = "Madani"} }, 

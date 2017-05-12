@@ -125,12 +125,40 @@ namespace App.Gwin
         {
             if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
                 this.RefreshData();
+
+            // Change Direction of TabControlMainManager
+            // Change Form Direction  - When  Languauge is changed
+            if (GwinApp.Instance.CultureInfo.TwoLetterISOLanguageName == "fr" || GwinApp.Instance.CultureInfo.TwoLetterISOLanguageName == "en")
+            {
+                tabControl_MainManager.RightToLeftLayout = false;
+                tabControl_MainManager.RightToLeft = RightToLeft.No;
+            }
+            else
+            {
+                tabControl_MainManager.RightToLeftLayout = true;
+                tabControl_MainManager.RightToLeft = RightToLeft.Yes;
+            }
         }
         private void EntityManagementForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Fix Problem : Close form with cas validation 
             // bevause the form dont want be closed if the validation is active
             e.Cancel = false;
+        }
+
+        private void panelDataGrid_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void TabGrid_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void ChangeTabGridTitle(string Title)
+        {
+            this.tabControl_MainManager.TabPages["TabGrid"].Text = Title;
         }
     }
 }

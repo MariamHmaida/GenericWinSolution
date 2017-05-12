@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using App.Shared.AttributesManager;
 using System.Reflection;
+using App.Gwin.Entities.Resources.Glossary;
 
 namespace App.Gwin.FieldsTraitements
 {
@@ -71,7 +72,7 @@ namespace App.Gwin.FieldsTraitements
             DataGridViewButtonColumn ButtonColumn = new DataGridViewButtonColumn();
             ButtonColumn.UseColumnTextForButtonValue = true;
             // [Localize]
-            ButtonColumn.Text = param.ConfigProperty.PropertyInfo.Name;
+            ButtonColumn.Text = Glossary.Update + " : " + param.ConfigProperty.DisplayProperty.Titre;
             param.Column = ButtonColumn;
 
             param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Titre;

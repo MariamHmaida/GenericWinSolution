@@ -34,23 +34,8 @@ namespace App.Gwin
         /// <param name="cultureInfo">CultureInfo Instance</param>
         public static void ChangeLanguage(CultureInfo cultureInfo)
         {
-            GwinApp.TestIf_Gwin_isStart();
-
-            // Must Delete All Entity Configuration, bacause it demande with language
-            ConfigEntity.Despose();
-
-            // Change Gwin CultureInfo Instance
-            GwinApp.Instance.CultureInfo = cultureInfo;
             GwinApp.instance.user.Language = Convert_CultureInfo_Language(cultureInfo);
-
-            // Change Thread CultureInfo Instance
-            Thread.CurrentThread.CurrentCulture = cultureInfo;
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
-
-            
-
-            // ReLoad Applicaton Interface
-            instance.FormApplication.Reload();
+            SetLanguage(cultureInfo);
 
             //[Role] Restart must be after Language change, for Set Application Name Title after 
             // Initialize Form
@@ -63,12 +48,19 @@ namespace App.Gwin
         /// <param name="cultureInfo">CultureInfo Instance</param>
         public static void SetLanguage(CultureInfo cultureInfo)
         {
-            
+
 
             GwinApp.TestIf_Gwin_isStart();
 
+
+
+
+
             // Must Delete All Entity Configuration, bacause it demande with language
             ConfigEntity.Despose();
+
+            // Set Date as Latin Date
+            cultureInfo.DateTimeFormat.Calendar = new System.Globalization.GregorianCalendar();
 
             // Change Gwin CultureInfo Instance
             GwinApp.Instance.CultureInfo = cultureInfo;
@@ -94,7 +86,22 @@ namespace App.Gwin
                 case "FR": return Languages.fr;
                 case "EN": return Languages.en;
                 default: return Languages.en;
-                  
+
+            }
+        }
+
+        /// <summary>
+        /// Ckeck if Contols must be showen as RightToLeft
+        /// </summary>
+        public static bool isRightToLeft
+        {
+            get
+            {
+
+                if (GwinApp.instance.user.Language == Languages.ar)
+                    return true;
+                else
+                    return false;
             }
         }
 

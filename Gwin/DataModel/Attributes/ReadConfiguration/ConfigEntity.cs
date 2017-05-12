@@ -14,6 +14,8 @@ using App.Gwin.Application.Presentation.Messages;
 using App.Gwin.Entities.Resources.Glossary;
 using App.Gwin.Exceptions.Gwin;
 using App.Gwin.DataModel.Helpers;
+using App.Gwin.Components.Manager.DataGrid;
+using System.Windows.Forms;
 
 namespace App.Gwin.Attributes
 {
@@ -27,13 +29,14 @@ namespace App.Gwin.Attributes
         public ManagementFormAttribute ManagementForm { set; get; }
         public AddButtonAttribute AddButton { set; get; }
         public MenuAttribute Menu { set; get; }
-   
+        public List<DataGridSelectedActionAttribute> ListDataGridSelectedAction { set; get; }
+
         public Type TypeOfEntity { set; get; }
         public bool Localizable { get; set; }
         /// <summary>
         /// Culture Info
         /// </summary>
-        public CultureInfo CultureInfo { get;  set; }
+        public CultureInfo CultureInfo { get; set; }
         /// <summary>
         /// Entity Ressource manager
         /// </summary>
@@ -41,7 +44,7 @@ namespace App.Gwin.Attributes
 
         ResourceManager baseEntityResourceManager = null;
 
-        private static Dictionary<Type,ConfigEntity> ConfigurationOfEntities { get; set; }
+        private static Dictionary<Type, ConfigEntity> ConfigurationOfEntities { get; set; }
         #endregion
 
 
@@ -64,7 +67,7 @@ namespace App.Gwin.Attributes
 
             if (!ConfigurationOfEntities.Keys.Contains(type_of_entity))
                 ConfigurationOfEntities[type_of_entity] = new ConfigEntity(type_of_entity);
-         
+
             return ConfigurationOfEntities[type_of_entity];
         }
 
@@ -77,7 +80,7 @@ namespace App.Gwin.Attributes
             //Fill RessouceManager
             this.RessourcesManagers = new Dictionary<string, ResourceManager>();
             RessoucesManagerHelper.FillResourcesManager(this.TypeOfEntity, this.RessourcesManagers);
-  
+
             // BaseEntity RessouceManager
             string BaseEntityRessouceFullName = typeof(BaseEntity).Namespace + ".Resources." + typeof(BaseEntity).Name + "." + typeof(BaseEntity).Name;
             baseEntityResourceManager = new ResourceManager(BaseEntityRessouceFullName, typeof(BaseEntity).Assembly);
@@ -86,7 +89,7 @@ namespace App.Gwin.Attributes
 
             #region Read DisplayEntityAttribute
             // 
-            // Read Disply Entity Configuration
+            // Read GwinEntity  Configuration
             //
 
             // Load and Check Existance of DisplayEntityAttribute
@@ -96,7 +99,7 @@ namespace App.Gwin.Attributes
                 string msg_excepion = "The meta annotation :" + nameof(GwinEntityAttribute) + " not exist ";
                 msg_excepion += " in Entity : " + this.TypeOfEntity.Name;
                 msg_excepion += ". It is required, because it contain DiplayMameber config that is used by ToString method to diply Entity";
-                throw new GwinException(msg_excepion); 
+                throw new GwinException(msg_excepion);
             }
 
             this.DisplayEntity = (GwinEntityAttribute)ls_attribut[0];
@@ -114,10 +117,10 @@ namespace App.Gwin.Attributes
                 this.DisplayEntity.SingularName = this.GetStringFromRessource("SingularName", true);
 
                 // Load Title with Name of Entity if PluraleNameKay Not exist
-                if(this.DisplayEntity.PluralName == null)
+                if (this.DisplayEntity.PluralName == null)
                     this.DisplayEntity.PluralName = this.GetStringFromRessource(this.TypeOfEntity + "_PluraleName", false);
                 if (this.DisplayEntity.SingularName == null)
-                    this.DisplayEntity.SingularName = this.GetStringFromRessource(this.TypeOfEntity +"_SingularName", false);
+                    this.DisplayEntity.SingularName = this.GetStringFromRessource(this.TypeOfEntity + "_SingularName", false);
 
 
 
@@ -136,11 +139,12 @@ namespace App.Gwin.Attributes
                 if (this.ManagementForm.FormTitle != null)
                     this.ManagementForm.FormTitle = GetStringFromRessource(this.ManagementForm.FormTitle);
             }
-            if (this.ManagementForm.TitrePageGridView == null)
-                this.ManagementForm.TitrePageGridView = this.DisplayEntity.PluralName;
+            
             if (this.ManagementForm.FormTitle == null)
                 this.ManagementForm.FormTitle = baseEntityResourceManager
                 .GetString("management_of", this.CultureInfo) + " " + this.DisplayEntity.PluralName?.ToLower();
+            if (this.ManagementForm.TitrePageGridView == null)
+                this.ManagementForm.TitrePageGridView = this.ManagementForm.FormTitle;
 
             #endregion
 
@@ -162,7 +166,7 @@ namespace App.Gwin.Attributes
                 switch (this.CultureInfo.TwoLetterISOLanguageName)
                 {
                     case "fr":
-                        this.AddButton.Title = Glossary.Add  + " " + (this.DisplayEntity.isMaleName ? "un" : "une") + " " + this.DisplayEntity.SingularName.ToLower();
+                        this.AddButton.Title = Glossary.Add + " " + (this.DisplayEntity.isMaleName ? "un" : "une") + " " + this.DisplayEntity.SingularName.ToLower();
                         break;
                     default:
                         this.AddButton.Title = baseEntityResourceManager
@@ -190,9 +194,37 @@ namespace App.Gwin.Attributes
             }
 
             #endregion
+
+            #region Read DataGridSelectedAction
+            ls_attribut = this.TypeOfEntity.GetCustomAttributes(typeof(DataGridSelectedActionAttribute), false);
+            if (ls_attribut != null)
+                this.ListDataGridSelectedAction = ls_attribut.OfType<DataGridSelectedActionAttribute>().ToList();
+            if (this.Localizable)
+            {
+                foreach (var item in this.ListDataGridSelectedAction)
+                {
+                    if (item.Title != null)
+                        item.Title = GetStringFromRessource(item.Title);
+                    if (item.Description != null)
+                        item.Description = GetStringFromRessource(item.Description);
+                }
+            }
+            
+            // if Text is null; we use form.Text
+            foreach (var item in this.ListDataGridSelectedAction)
+            {
+                if (item.TypeOfForm == null)
+                    throw new GwinException(string.Format("The TypeOfFrom of DataGridSelectedAction in Entity :{0} must not be null,it is used to Create Instance of Form to execute traitement action",this.TypeOfEntity.FullName));
+                if (item.Title == null || item.Title == string.Empty)
+                {
+                    Form form = Activator.CreateInstance(item.TypeOfForm) as Form;
+                    item.Title = form.Text;
+                }
+            }
+            #endregion
         }
 
-       
+
 
         /// <summary>
         /// Get translated string from resource file
@@ -204,7 +236,7 @@ namespace App.Gwin.Attributes
         private string GetStringFromRessource(string key, bool return_null_if_nat_exist = false)
         {
             string msg = null;
-            
+
             foreach (var item in RessourcesManagers.Values)
             {
                 string text;
@@ -234,15 +266,15 @@ namespace App.Gwin.Attributes
 
         public bool Dispose()
         {
-           return ConfigEntity.ConfigurationOfEntities.Remove(this.TypeOfEntity);
+            return ConfigEntity.ConfigurationOfEntities.Remove(this.TypeOfEntity);
         }
         /// <summary>
         /// Delete all ConfigEntity object
         /// </summary>
         public static void Despose()
         {
-            if(ConfigurationOfEntities != null)
-            ConfigurationOfEntities.Clear();
+            if (ConfigurationOfEntities != null)
+                ConfigurationOfEntities.Clear();
         }
     }
 }

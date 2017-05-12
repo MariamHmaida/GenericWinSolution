@@ -2,6 +2,7 @@
 using App.Gwin.Entities;
 using App.Gwin.Entities.MultiLanguage;
 using App.Gwin.GwinApplication.Security.Attributes;
+using GenericWinForm.Demo.Presentation.TaskProjectManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace GenericWinForm.Demo.Entities
     [GwinEntity(DisplayMember = "Title")]
     [Authorize]
     [Menu]
+    [DataGridSelectedAction(Title = "Print", Description = "Print_Task", TypeOfForm = typeof(FormPrintTaskProject))]
     public class Project:BaseEntity
     {
 
@@ -24,20 +26,21 @@ namespace GenericWinForm.Demo.Entities
             this.Description = new LocalizedString();
         }
 
-        [EntryForm]
+        [EntryForm(isRequired = true)]
         [Filter]
         [DataGrid]
         [BusinesRole]
         public string Title { set; get; }
 
 
-        [EntryForm(MultiLine = true,WidthControl =300)]
+        [EntryForm(MultiLine = true,WidthControl =300, isRequired = true)]
         [Filter]
         [DataGrid]
         public LocalizedString Description { set; get; }
 
 
         [Relationship(Relation = RelationshipAttribute.Relations.ManyToMany_Creation)]
+        [DataGrid]
         public List<TaskProject> TaskProjects { set; get; }
 
 

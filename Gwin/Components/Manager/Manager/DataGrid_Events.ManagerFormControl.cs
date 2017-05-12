@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using App.Gwin.Application.BAL;
 using System.ComponentModel;
 using System.Diagnostics;
+using App.Gwin.Entities.Resources.Glossary;
 
 namespace App.Gwin
 {
@@ -32,17 +33,19 @@ namespace App.Gwin
             {
                 // Creation of Edit Tab page
                 TabPage tabEditer = new TabPage();
-                tabEditer.Text = entity.ToString();
+                tabEditer.Text = Glossary.Update + " : " + entity.ToString();
                 tabEditer.Name = tabEditerName;
+                tabEditer.Font = this.tabControl_MainManager.TabPages["TabGrid"].Font;
                 tabControl_MainManager.TabPages.Add(tabEditer);
                 tabControl_MainManager.CausesValidation = false;
                 // Creation of EntryForm
                 BaseEntryForm form = EntryForm_Instance.CreateInstance(this.BLO_Instance, entity, null);
                 form.Name = "EntityForm";
                 form.Dock = DockStyle.Fill;
+
                 this.tabControl_MainManager.TabPages[tabEditerName].Controls.Add(form);
                 tabControl_MainManager.SelectedTab = tabEditer;
-                form.ShowEntity(this.Filter_Instance.GetFilterValues());
+                form.ShowEntity(this.Filter_Instance.GetFilterValues(), BaseEntryForm.EntityActions.Update);
                 // Entry Form Events
                 form.EnregistrerClick += Form_EditerClick;
                 form.AnnulerClick += Form_AnnulerEditerClick;
@@ -83,8 +86,15 @@ namespace App.Gwin
             // Create ManagerFormControl Instance
             ManagerFormControl form = new ManagerFormControl(service_objet_of_collection, ValeursFiltre, this.MdiParent);
 
+            ConfigEntity configEntity = ConfigEntity.CreateConfigEntity(propertyInfo.DeclaringType);
+
+            string formTitle = Glossary.Update + " : ";
+            formTitle += new ConfigProperty(propertyInfo, configEntity).DisplayProperty.Titre; // Entity
+            formTitle += " " + Glossary.For + " ";
+            formTitle += obj;
+            form.ChangeTabGridTitle(formTitle);
             // Not Show In RunTume Mode
-            if (!Debugger.IsAttached)
+            //if (!Debugger.IsAttached)
                 form.ShowFilter(false);
 
 

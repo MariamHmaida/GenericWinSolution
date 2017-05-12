@@ -60,6 +60,7 @@
             this.panelDataGrid.Size = new System.Drawing.Size(1065, 370);
             this.panelDataGrid.TabIndex = 17;
             this.panelDataGrid.Tag = "";
+            this.panelDataGrid.Paint += new System.Windows.Forms.PaintEventHandler(this.panelDataGrid_Paint);
             // 
             // tabControlManagers
             // 
@@ -89,13 +90,16 @@
             this.tabControl_MainManager.CausesValidation = false;
             this.tabControl_MainManager.Controls.Add(this.TabGrid);
             this.tabControl_MainManager.Controls.Add(this.tabPageAdd);
+            this.tabControl_MainManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl_MainManager.HotTrack = true;
             this.tabControl_MainManager.ImageList = this.imageList;
             this.tabControl_MainManager.ItemSize = new System.Drawing.Size(20, 28);
             this.tabControl_MainManager.Location = new System.Drawing.Point(564, 41);
             this.tabControl_MainManager.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl_MainManager.Multiline = true;
             this.tabControl_MainManager.Name = "tabControl_MainManager";
             this.tabControl_MainManager.Padding = new System.Drawing.Point(5, 2);
+            this.tabControl_MainManager.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.tabControl_MainManager.SelectedIndex = 0;
             this.tabControl_MainManager.ShowToolTips = true;
             this.tabControl_MainManager.Size = new System.Drawing.Size(439, 219);
@@ -106,6 +110,7 @@
             // TabGrid
             // 
             this.TabGrid.CausesValidation = false;
+            this.TabGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TabGrid.Location = new System.Drawing.Point(4, 32);
             this.TabGrid.Name = "TabGrid";
             this.TabGrid.Padding = new System.Windows.Forms.Padding(3);
@@ -113,9 +118,11 @@
             this.TabGrid.TabIndex = 0;
             this.TabGrid.Text = "Informations";
             this.TabGrid.UseVisualStyleBackColor = true;
+            this.TabGrid.Click += new System.EventHandler(this.TabGrid_Click);
             // 
             // tabPageAdd
             // 
+            this.tabPageAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdd.ImageKey = "add.png";
             this.tabPageAdd.Location = new System.Drawing.Point(4, 32);
             this.tabPageAdd.Name = "tabPageAdd";

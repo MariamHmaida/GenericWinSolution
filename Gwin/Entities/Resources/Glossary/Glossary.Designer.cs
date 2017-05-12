@@ -124,6 +124,24 @@ namespace App.Gwin.Entities.Resources.Glossary {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Entering this field is mandatory.
+        /// </summary>
+        internal static string Entering_this_field_is_mandatory {
+            get {
+                return ResourceManager.GetString("Entering_this_field_is_mandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à for.
+        /// </summary>
+        internal static string For {
+            get {
+                return ResourceManager.GetString("For", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Name.
         /// </summary>
         internal static string Name {
@@ -192,6 +210,15 @@ namespace App.Gwin.Entities.Resources.Glossary {
         internal static string TitleFrench {
             get {
                 return ResourceManager.GetString("TitleFrench", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Update.
+        /// </summary>
+        internal static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
     }

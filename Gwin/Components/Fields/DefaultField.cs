@@ -9,6 +9,7 @@ namespace App.Gwin.Fields
     /// </summary>
     public partial class DefaultField : App.Gwin.Fields.BaseField
     {
+
         /// <summary>
         /// Value of Object 
         /// </summary>
@@ -52,6 +53,17 @@ namespace App.Gwin.Fields
             }
         }
 
+        /// <summary>
+        /// Check if Field is Empty or not
+        /// </summary>
+        public override bool isEmpty
+        {
+            get
+            {
+                if (textBoxField.Text == string.Empty) return true;
+                else return false;
+            }
+        }
 
         #endregion
 

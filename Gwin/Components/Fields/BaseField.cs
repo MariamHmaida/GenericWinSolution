@@ -33,8 +33,6 @@ namespace App.Gwin.Fields
         }
         #endregion
 
-
-
         #region Properties
         /// <summary>
         /// PropertyInfo
@@ -93,7 +91,8 @@ namespace App.Gwin.Fields
             }
         }
         private Size sizezControl;
-        public Size SizeControl {
+        public Size SizeControl
+        {
             get
             {
                 return this.sizezControl;
@@ -112,7 +111,7 @@ namespace App.Gwin.Fields
         /// Indicate whether the size configuration is automatic
         /// Default is True
         /// </summary>
-        public bool AutoSizeConfig { get;  set; }
+        public bool AutoSizeConfig { get; set; }
 
         #endregion
 
@@ -130,6 +129,16 @@ namespace App.Gwin.Fields
             this.StartAutoSizeConfig();
         }
         #endregion
+
+        /// <summary>
+        /// Ckeck if the filed is Empty or Not
+        /// </summary>
+        public virtual Boolean isEmpty
+        {
+            get {
+                return false;
+            }
+        }
 
         public void StopAutoSizeConfig()
         {
@@ -177,7 +186,7 @@ namespace App.Gwin.Fields
 
                 this.splitContainer.SplitterDistance = this.SizeLabel.Height;
                 this.splitContainer.Orientation = Orientation.Horizontal;
-                
+
                 // Containner
                 this.splitContainer.SplitterDistance = this.SizeLabel.Height;
             }

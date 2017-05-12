@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace App.WinFrom.Validation
+namespace App.Gwin.Validation
 {
     public class MessageValidation
     {
@@ -42,19 +42,6 @@ namespace App.WinFrom.Validation
                 errorProvider.SetError(controle, "");
         }
 
-        public void DateTimePicker(object sender, CancelEventArgs e, String message = "")
-        {
-            DateTimePicker controle = (DateTimePicker)sender;
-            if (message == "") message = "La saisie de ce champs est oblégatoir";
-
-            // à vérifer avec les second
-            if (controle.Value == DateTime.Now)
-            {
-                errorProvider.SetError(controle, message);
-                e.Cancel = true;
-            }
-            else
-                errorProvider.SetError(controle, "");
-        }
+       
     }
 }

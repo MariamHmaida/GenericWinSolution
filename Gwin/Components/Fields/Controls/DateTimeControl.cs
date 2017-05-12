@@ -23,8 +23,8 @@ namespace App.Gwin.Fields.Controls
         public event EventHandler ValueChanged;
         protected void onValueChanged(object sender, EventArgs e)
         {
-            if(ValueChanged != null)
-            ValueChanged(sender, e);
+            if (ValueChanged != null)
+                ValueChanged(sender, e);
         }
         #endregion
 
@@ -37,8 +37,10 @@ namespace App.Gwin.Fields.Controls
             }
             set
             {
-             
-                this.dateTimePicker.Value = value;
+                if (value == System.Data.SqlTypes.SqlDateTime.MinValue)
+                    this.dateTimePicker.Value = DateTime.Now;
+                else
+                    this.dateTimePicker.Value = value;
             }
         }
         #endregion
@@ -54,7 +56,7 @@ namespace App.Gwin.Fields.Controls
         /// <summary>
         /// Indicate if the configuration of DateTime Cilture is true or false
         /// </summary>
-        public bool Show_Config_Culture { get;  set; }
+        public bool Show_Config_Culture { get; set; }
 
 
         #region Constructeurs
@@ -85,7 +87,7 @@ namespace App.Gwin.Fields.Controls
 
         private void DateTimeControl_Resize(object sender, EventArgs e)
         {
-           
+
         }
 
         public Size ChangeSizeControl(Size size)
@@ -93,7 +95,7 @@ namespace App.Gwin.Fields.Controls
             Size newSize = size;
             if (this.Show_Config_Culture)
                 newSize = new Size(size.Width, size.Height + 20);
-           // Size can't be change
+            // Size can't be change
             this.Size = newSize;
             this.CreateControl();
 

@@ -68,7 +68,7 @@ namespace App.Gwin.Fields
                     foreach (Type item in MetaSelectionCriteria.Criteria)
                     {
                         // Meta information d'affichage du de Critère
-                        GwinEntityAttribute MetaAffichageClasseCritere = (GwinEntityAttribute)item.GetCustomAttribute(typeof(GwinEntityAttribute));
+                        GwinEntityAttribute gwinEntity = (GwinEntityAttribute)item.GetCustomAttribute(typeof(GwinEntityAttribute));
 
 
                         ManyToOneField manyToOneFilter = new ManyToOneField(this.Service, item, null, null,
@@ -80,10 +80,10 @@ namespace App.Gwin.Fields
                         //manyToOneFilter.Size = new System.Drawing.Size(this.widthField, this.HeightField);
 
                         manyToOneFilter.TabIndex = ++index;
-                        manyToOneFilter.Text_Label = item.Name;
+                        manyToOneFilter.Text_Label = ConfigEntity.CreateConfigEntity(item).DisplayEntity.SingularName;
 
                         manyToOneFilter.ValueMember = "Id";
-                        manyToOneFilter.DisplayMember = MetaAffichageClasseCritere.DisplayMember;
+                        manyToOneFilter.DisplayMember = gwinEntity.DisplayMember;
                         // pour le chargement de comboBox Suivant
                         manyToOneFilter.ValueChanged += Value_SelectedIndexChanged;
 

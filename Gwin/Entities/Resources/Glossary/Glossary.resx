@@ -138,6 +138,12 @@
   <data name="EndDate" xml:space="preserve">
     <value>End Date</value>
   </data>
+  <data name="Entering_this_field_is_mandatory" xml:space="preserve">
+    <value>Entering this field is mandatory</value>
+  </data>
+  <data name="For" xml:space="preserve">
+    <value>for</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -161,5 +167,8 @@
   </data>
   <data name="TitleFrench" xml:space="preserve">
     <value>French Title</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
   </data>
 </root>

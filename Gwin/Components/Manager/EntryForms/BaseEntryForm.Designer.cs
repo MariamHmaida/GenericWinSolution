@@ -114,11 +114,13 @@
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
+            resources.ApplyResources(this.errorProvider, "errorProvider");
             // 
             // BaseEntryForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CausesValidation = false;
             this.Controls.Add(this.splitContainer1);
             this.Name = "BaseEntryForm";
             this.Load += new System.EventHandler(this.BaseEntryForm_Load);

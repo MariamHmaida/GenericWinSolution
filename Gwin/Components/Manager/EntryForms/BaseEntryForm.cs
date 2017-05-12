@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using App.WinFrom.Validation;
 using System.Reflection;
 using App.Gwin.Attributes;
 using System.Data.Entity;
@@ -19,6 +18,7 @@ using App.Gwin.Shared.Resources;
 using App.Gwin.Application.BAL;
 using App.Gwin.Exceptions.Gwin;
 using App.Gwin.Exceptions.Helpers;
+using App.Gwin.Validation;
 
 namespace App.Gwin
 {
@@ -113,6 +113,10 @@ namespace App.Gwin
             InitializeComponent();
 
             CheckPramIsNull.CheckParam_is_NotNull(EtityBLO, this, nameof(EtityBLO));
+
+            // Init 
+            errorProvider.RightToLeft = GwinApp.isRightToLeft;
+
 
             // Params
             this.EntityBLO = EtityBLO;
@@ -322,6 +326,12 @@ namespace App.Gwin
 
         }
 
+        
+        private void btAnnuler_Click(object sender, EventArgs e)
+        {
 
+            onAnnulerClick(this, e);
+
+        }
     }
 }

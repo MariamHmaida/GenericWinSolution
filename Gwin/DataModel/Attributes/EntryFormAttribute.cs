@@ -5,7 +5,11 @@ namespace App.Gwin.Attributes
 {
     public class EntryFormAttribute : Attribute
     {
-        #region EntryForm
+        /// <summary>
+        /// Show the default value when when Add the Entity
+        /// </summary>
+        public bool isShowDefaultValueWhenAdd;
+        
         /// <summary>
         /// Indique si la propriété fait partie de la formulaire
         /// </summary>
@@ -43,10 +47,11 @@ namespace App.Gwin.Attributes
         /// Cette configuration exisite parceque le type "Orientation" n'est pas nullable
         /// </summary>
         public bool UseOrientationField { get; set; }
+        
         /// <summary>
-        /// Indique si la saisie de cette information est 
+        /// Determine if the entry of property is required
         /// </summary>
-        public bool isOblegatoir { get; set; }
+        public bool isRequired { get; set; }
         /// <summary>
         /// si l'affichage est activté ou non
         /// La valeur par défaut est vrais
@@ -68,7 +73,7 @@ namespace App.Gwin.Attributes
         /// </summary>
         public int GroupeBoxOrder { get; set; }
 
-        #endregion
+       
 
         public EntryFormAttribute()
         {

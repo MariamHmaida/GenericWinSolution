@@ -4,6 +4,7 @@ using App.Gwin.Entities;
 using App.Gwin.Entities.MultiLanguage;
 using App.Gwin.GwinApplication.Security.Attributes;
 using App.Gwin.ModelData;
+using GenericWinForm.Demo.Presentation.TaskProjectManager;
 using System.Collections.Generic;
 
 namespace GenericWinForm.Demo.Entities
@@ -16,31 +17,38 @@ namespace GenericWinForm.Demo.Entities
     /// </summary>
     [GwinEntity(Localizable =true,DisplayMember = nameof(TaskProject.Title))]
     [Menu]
-    [Authorize]
+    [ManagementForm(FormTitle = "form_title")]
+    [BusinesRole]
     public class TaskProject : BaseEntity
     {
+
+        public TaskProject()
+        {
+            this.Title = new LocalizedString();
+            this.Description = new LocalizedString();
+        }
 
         #region Primitive Type 
         /// <summary>
         /// Type : String
         /// </summary>
-        [EntryForm]
+        [EntryForm(GroupeBox = "Primitive_Type",GroupeBoxOrder = 4,isRequired = true)]
         [Filter]
         [DataGrid]
-        public string Title { set; get; }
+        public LocalizedString Title { set; get; }
 
         /// <summary>
         /// Type : String with MultiLine
         /// </summary>
-        [EntryForm(MultiLine =true)]
-        [Filter]
+        [EntryForm(MultiLine =true, GroupeBox = "Primitive_Type", GroupeBoxOrder = 4)]
+        //[Filter]
         [DataGrid]
-        public string Description { set; get; }
+        public LocalizedString Description { set; get; }
 
         /// <summary>
         /// Type : DateTime
         /// </summary>
-        [EntryForm]
+        [EntryForm(GroupeBox = "Primitive_Type", GroupeBoxOrder = 4,isRequired = true)]
         // [Filter] not yet implemented, Bug : cant show Data, msut eliminate second 
         // from search data
         [DataGrid]
@@ -50,7 +58,7 @@ namespace GenericWinForm.Demo.Entities
         /// <summary>
         /// Type : Boolean
         /// </summary>
-        [EntryForm]
+        [EntryForm(GroupeBox = "Primitive_Type", GroupeBoxOrder = 4 , isRequired = true)]
         [Filter]
         [DataGrid]
         public System.Boolean Valide { set; get; }
@@ -59,7 +67,7 @@ namespace GenericWinForm.Demo.Entities
         /// <summary>
         /// Type : Int32
         /// </summary>
-        [EntryForm]
+        [EntryForm(GroupeBox = "Primitive_Type", GroupeBoxOrder = 4,isShowDefaultValueWhenAdd = true)]
         [Filter]
         [DataGrid]
         public System.Int32 DaysNumber { set; get; }
@@ -67,32 +75,32 @@ namespace GenericWinForm.Demo.Entities
         /// <summary>
         /// Type : Int16
         /// </summary>
-        [EntryForm]
-        [Filter]
+        [EntryForm(GroupeBox = "Primitive_Type", GroupeBoxOrder = 4 , isRequired = true)]
+        // [Filter]
         [DataGrid]
         public System.Int16 var_Int16 { set; get; }
 
         /// <summary>
         /// Type : Int64
         /// </summary>
-        [EntryForm]
-        [Filter]
+        [EntryForm(GroupeBox = "Primitive_Type", GroupeBoxOrder = 4)]
+        //[Filter]
         [DataGrid]
         public System.Int64 var_Int64 { set; get; }
 
         /// <summary>
         /// Type : var_float
         /// </summary>
-        [EntryForm]
-        [Filter]
+        [EntryForm(GroupeBox = "Primitive_Type", GroupeBoxOrder = 4)]
+        // [Filter]
         [DataGrid]
         public float var_float { set; get; }
 
         /// <summary>
         /// Type : double
         /// </summary>
-        [EntryForm]
-        [Filter]
+        [EntryForm(GroupeBox = "Primitive_Type", GroupeBoxOrder = 4)]
+        // [Filter]
         [DataGrid]
         public double var_double { set; get; }
         #endregion
@@ -102,7 +110,7 @@ namespace GenericWinForm.Demo.Entities
         /// <summary>
         /// Type : LocalizedString
         /// </summary>
-        [EntryForm]
+        [EntryForm(GroupeBox = "Localized_Type")]
         [Filter]
         [DataGrid]
         public LocalizedString LocalizedTitle { set; get; }
@@ -113,8 +121,8 @@ namespace GenericWinForm.Demo.Entities
         /// <summary>
         /// Type : String Wtih DataSource
         /// </summary>
-        [EntryForm]
-        [Filter]
+        [EntryForm(GroupeBox = " DataSourceType", GroupeBoxOrder =5)]
+        [Filter ( isValeurFiltreVide = true)]
         [DataGrid]
         [ReferencesDataSource(TypeObject = typeof(ModelConfiguration),
             MethodeName = nameof(ModelConfiguration.GetAll_Entities_Type),
@@ -122,7 +130,7 @@ namespace GenericWinForm.Demo.Entities
         public string EntityToManimulate { set; get; }
 
         [Filter(WidthControl = 400, isValeurFiltreVide = true)]
-        [EntryForm(WidthControl = 400)]
+        [EntryForm(WidthControl = 400, GroupeBox = " DataSourceType", GroupeBoxOrder = 5)]
         [DataGrid(WidthColonne = 400)]
         [ReferencesDataSource(TypeObject = typeof(GwinBusinessEntitiesManager),
             MethodeName = nameof(GwinBusinessEntitiesManager.GetAll),
@@ -138,7 +146,7 @@ namespace GenericWinForm.Demo.Entities
         /// <summary>
         /// Type : Enumeration
         /// </summary>
-        [EntryForm]
+        [EntryForm(GroupeBox = "Enumeration",GroupeBoxOrder = 1)]
         // [Filter] Enumeation in Filter not yet implmented
         [DataGrid]
         public TaskCategory Categoy { set; get; }
@@ -148,8 +156,8 @@ namespace GenericWinForm.Demo.Entities
         /// <summary>
         /// Type : ManyToOne
         /// </summary>
-        [EntryForm]
-        [Filter]
+        [EntryForm(GroupeBox = "RelationShip",GroupeBoxOrder = 2)]
+        [Filter(isValeurFiltreVide = true)]
         [DataGrid]
         [Relationship(Relation = RelationshipAttribute.Relations.ManyToOne)]
         public Project Project { set; get; }
@@ -158,7 +166,6 @@ namespace GenericWinForm.Demo.Entities
         /// Type : ManyToManu_Creation
         /// Filter : NotImplemented yet
         /// </summary>
-        [EntryForm]
         [DataGrid]
         [Relationship(Relation = RelationshipAttribute.Relations.ManyToMany_Creation)]
         public virtual List<Individual> Responsibles { set; get; }
@@ -167,7 +174,7 @@ namespace GenericWinForm.Demo.Entities
         /// Type : ManyToMany_Selection 
         /// Filter : NotImplemented yet
         /// </summary>
-        [EntryForm]
+        [EntryForm(GroupeBox = "RelationShip", GroupeBoxOrder = 2)]
         [DataGrid]
         [Relationship(Relation = RelationshipAttribute.Relations.ManyToMany_Selection)]
         public virtual List<Individual> Peoples { set; get; }

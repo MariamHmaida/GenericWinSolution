@@ -16,7 +16,7 @@ namespace App.Gwin.Entities.ContactInformations
     public class City : BaseEntity
     {
         [DisplayProperty(isInGlossary = true)]
-        [EntryForm(isOblegatoir =true)]
+        [EntryForm(isRequired =true)]
         [Filter]
         [DataGrid]
         public LocalizedString Name { set; get; }

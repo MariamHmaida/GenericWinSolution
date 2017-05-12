@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using App.Gwin.Entities.Resources.Glossary;
 
 namespace App.Gwin.FieldsTraitements
 {
@@ -43,22 +44,24 @@ namespace App.Gwin.FieldsTraitements
 
         public object GetTestValue(PropertyInfo propertyInfo)
         {
-       
+
             if (propertyInfo.PropertyType == typeof(string)) return "String Value";
             var value = Activator.CreateInstance(propertyInfo.PropertyType);
 
-           
+
 
             if (propertyInfo.PropertyType == typeof(int))
                 value = 5;
             if (propertyInfo.PropertyType == typeof(Int64))
-                value = (Int64) 5.5;
+                value = (Int64)5.5;
             if (propertyInfo.PropertyType == typeof(float))
-                value = (float) 5.5;
+                value = (float)5.5;
 
 
             return value;
         }
+
+        
 
 
         #region EntryForm
@@ -70,6 +73,9 @@ namespace App.Gwin.FieldsTraitements
         /// <returns>the created field</returns>
         public BaseField CreateField_In_EntryForm(CreateFieldParams param)
         {
+            // Set ErrorProvider Instance
+            this.errorProvider = param.errorProvider;
+
             DefaultField defaultField = new DefaultField();
             defaultField.StopAutoSizeConfig();
             defaultField.Name = param.PropertyInfo.Name;
@@ -81,14 +87,18 @@ namespace App.Gwin.FieldsTraitements
             defaultField.Text_Label = param.ConfigProperty.DisplayProperty.Titre;
             defaultField.ConfigSizeField();
 
+            //Validating
+            if (param.ConfigProperty.EntryForm.isRequired)
+                defaultField.Validating += DefaultField_Validating;
+
             // Type of Property
             defaultField.PropertyInfo = param.ConfigProperty.PropertyInfo;
 
             // Can not Update Not supported Type , you can Just read it value
             // NB : String is not a primitve type
             if (
-                !param.ConfigProperty.PropertyInfo.PropertyType.IsPrimitive 
-                && ! (param.ConfigProperty.PropertyInfo.PropertyType == typeof(string))
+                !param.ConfigProperty.PropertyInfo.PropertyType.IsPrimitive
+                && !(param.ConfigProperty.PropertyInfo.PropertyType == typeof(string))
                 )
                 defaultField.Enabled = false;
 
@@ -98,31 +108,60 @@ namespace App.Gwin.FieldsTraitements
             return defaultField;
         }
 
+        private void DefaultField_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DefaultField defaultField = (DefaultField)sender;
+            string message = Glossary.Entering_this_field_is_mandatory;
+
+            // à vérifer avec les second
+            if (defaultField.isEmpty)
+            {
+                errorProvider.Clear();
+                errorProvider.SetError(defaultField, message);
+                errorProvider.SetIconPadding(defaultField,  -20);
+                errorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+  
+                e.Cancel = true;
+            }
+           
+
+        }
+
         /// <summary>
         /// Step2 : Show Entity to EntryForm
         /// </summary>
         /// <param name="param">Parameters</param>
         public void ShowEntity_To_EntryForm(WriteEntity_To_EntryForm_Param param)
         {
-            object valeur = param
-                .Entity
-                .GetType()
-                .GetProperty(param.ConfigProperty.PropertyInfo.Name)
-                .GetValue(param.Entity);
+            object value = null;
 
-            // Use Filter Value
-            if (param.CritereRechercheFiltre != null && param.CritereRechercheFiltre.ContainsKey(param.ConfigProperty.PropertyInfo.Name))
-                valeur = param.CritereRechercheFiltre[param.ConfigProperty.PropertyInfo.Name].ToString();
-
-            // Find baseField control in ConteneurFormulaire
-            // And Set Value
-            Control[] recherche = param.FromContainer.Controls.Find(param.ConfigProperty.PropertyInfo.Name, true);
-            if (recherche.Count() > 0)
+            // Determine Value if EntryForm.isShowDefaultValueWhenAdd is true
+            if (param.EntityAction != BaseEntryForm.EntityActions.Add ||
+                param.EntityAction == BaseEntryForm.EntityActions.Add &&  param.ConfigProperty.EntryForm.isShowDefaultValueWhenAdd)
             {
-                BaseField baseField = (BaseField)recherche.First();
-                if (baseField == null) throw new GwinException("The field " + param.ConfigProperty.PropertyInfo.Name + "not exit in EntryForm");
-                baseField.Value = valeur;
+               value = param
+               .Entity
+               .GetType()
+               .GetProperty(param.ConfigProperty.PropertyInfo.Name)
+               .GetValue(param.Entity);
             }
+           
+            // Use Filter Value if exist
+            if (param.CritereRechercheFiltre != null && param.CritereRechercheFiltre.ContainsKey(param.ConfigProperty.PropertyInfo.Name))
+                value = param.CritereRechercheFiltre[param.ConfigProperty.PropertyInfo.Name].ToString();
+
+            // Find baseField control in ConteneurFormulaire and set Value 
+            if(value != null)
+            {
+                Control[] recherche = param.FromContainer.Controls.Find(param.ConfigProperty.PropertyInfo.Name, true);
+                if (recherche.Count() > 0)
+                {
+                    BaseField baseField = (BaseField)recherche.First();
+                    if (baseField == null) throw new GwinException("The field " + param.ConfigProperty.PropertyInfo.Name + "not exit in EntryForm");
+                    baseField.Value = value;
+                }
+            }
+            
 
         }
         #endregion

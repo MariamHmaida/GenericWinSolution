@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseFilterControl));
             this.groupBoxFiltrage = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBoxFiltrage.SuspendLayout();
@@ -35,33 +36,23 @@
             // 
             // groupBoxFiltrage
             // 
-            this.groupBoxFiltrage.AutoSize = true;
-            this.groupBoxFiltrage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            resources.ApplyResources(this.groupBoxFiltrage, "groupBoxFiltrage");
             this.groupBoxFiltrage.Controls.Add(this.flowLayoutPanel1);
-            this.groupBoxFiltrage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxFiltrage.Location = new System.Drawing.Point(0, 0);
             this.groupBoxFiltrage.Name = "groupBoxFiltrage";
-            this.groupBoxFiltrage.Size = new System.Drawing.Size(512, 194);
-            this.groupBoxFiltrage.TabIndex = 14;
             this.groupBoxFiltrage.TabStop = false;
             this.groupBoxFiltrage.Enter += new System.EventHandler(this.groupBoxFiltrage_Enter);
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(506, 175);
-            this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // EntityFilterControl
+            // BaseFilterControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.Controls.Add(this.groupBoxFiltrage);
-            this.Name = "EntityFilterControl";
-            this.Size = new System.Drawing.Size(512, 194);
+            this.Name = "BaseFilterControl";
             this.groupBoxFiltrage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

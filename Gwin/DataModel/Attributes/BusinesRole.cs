@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace App.Gwin.Attributes
 {
+    /// <summary>
+    /// Apply Business Role
+    /// Execute ApplyBusinessRolesAfterValuesChanged in BLO object
+    /// </summary>
     public class BusinesRoleAttribute : Attribute
     {
 

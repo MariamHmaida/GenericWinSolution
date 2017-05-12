@@ -165,4 +165,13 @@
   <data name="TitleFrench" xml:space="preserve">
     <value>Titre Français</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>Mettre à jour</value>
+  </data>
+  <data name="For" xml:space="preserve">
+    <value>pour</value>
+  </data>
+  <data name="Entering_this_field_is_mandatory" xml:space="preserve">
+    <value>La saisie de ce champs est obligatoire</value>
+  </data>
 </root>

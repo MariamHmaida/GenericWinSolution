@@ -33,7 +33,8 @@ namespace App.Gwin
         private void CreateFieldIfNotGenerated()
         {
             // Create Field if not yet Created
-            if (!this.AutoGenerateField || this.isGeneratedForm) return;
+            if (!this.AutoGenerateField || this.isGeneratedForm)
+                return;
             this.isGeneratedForm = true;
 
             #region Default Positions and  Size
@@ -58,7 +59,7 @@ namespace App.Gwin
             // L'index de la touche Entrer
             int TabIndex = 0;
 
-            // Get Properties with EntryForm Configuration
+            // Get Properties to show in Entry Form
             var listeProprite = from i in this.EntityBLO.TypeEntity.GetProperties()
                                 where i.GetCustomAttribute(typeof(EntryFormAttribute)) != null
                                 orderby ((EntryFormAttribute)i.GetCustomAttribute(typeof(EntryFormAttribute))).Ordre
@@ -87,7 +88,7 @@ namespace App.Gwin
 
                 BaseField baseField = null;
 
-                // Params to Creat Fields
+                // Params to Create Fields
                 CreateFieldParams param = new CreateFieldParams();
                 param.PropertyInfo = item;
                 param.Location = new System.Drawing.Point(x_field, y_field);
@@ -100,6 +101,7 @@ namespace App.Gwin
                 param.TabControlForm = this.tabControlForm; //  used per ManyToMany Field
                 param.Entity = this.Entity;
                 param.ConteneurFormulaire = FieldContainner;
+                param.errorProvider = errorProvider;
 
                 // Create FieldTraitement Instance
                 IFieldTraitements fieldTraitement = BaseFieldTraitement.CreateInstance(configProperty);
@@ -112,24 +114,25 @@ namespace App.Gwin
                     baseField.ValueChanged += ControlPropriete_ValueChanged;
 
                 // [Bug] Validation per FieldNature
-                if (configProperty.EntryForm?.isOblegatoir == true)
+                if (configProperty.EntryForm?.isRequired == true)
+                {
                     baseField.ValidatingField += textBoxString_Validating;
+                    GwinApp.Instance.Theme.RequiredField(baseField);
+                }
+                    
 
             }// Fin de for
 
-            // TabControl sur Enregistrer et Annuler
+            // TabControl for Save and Cancel button
             this.btEnregistrer.TabIndex = ++TabIndex;
             this.btAnnuler.TabIndex = ++TabIndex;
 
-
-            foreach (GroupBox item in this.ConteneurFormulaire.Controls.Cast<Control>().Where(c => c.GetType() == typeof(GroupBox)))
-            {
+            // GroupeBox Style
+            foreach (GroupBox item in this.ConteneurFormulaire.Controls.Cast<Control>().Where(c => c.GetType() == typeof(GroupBox))){
                 // item.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
                 item.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-
             }
-            foreach (FlowLayoutPanel item in GroupesBoxMainContainers.Values)
-            {
+            foreach (FlowLayoutPanel item in GroupesBoxMainContainers.Values){
                 item.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             }
         }
@@ -146,7 +149,7 @@ namespace App.Gwin
                                 where i.GetCustomAttribute(typeof(EntryFormAttribute)) != null
                                 && ((EntryFormAttribute)i.GetCustomAttribute(typeof(EntryFormAttribute))).GroupeBox != string.Empty
                                  && ((EntryFormAttribute)i.GetCustomAttribute(typeof(EntryFormAttribute))).GroupeBox != null
-                                 orderby ((EntryFormAttribute)i.GetCustomAttribute(typeof(EntryFormAttribute))).GroupeBoxOrder
+                                orderby ((EntryFormAttribute)i.GetCustomAttribute(typeof(EntryFormAttribute))).GroupeBoxOrder
                                 select ((EntryFormAttribute)i.GetCustomAttribute(typeof(EntryFormAttribute))).GroupeBox;
 
 
@@ -161,6 +164,7 @@ namespace App.Gwin
                     groupeBox.Text = ConfigEntity.Translate(item);
                     groupeBox.AutoSize = true;
                     groupeBox.Size = new Size(width, height);
+                    groupeBox.Padding = new Padding(20);
                     this.ConteneurFormulaire.Controls.Add(groupeBox);
 
 
@@ -262,10 +266,7 @@ namespace App.Gwin
             // déja le combobox propose le premiere élément séléctioné
         }
 
-        protected void DateTimePicker_Validating(object sender, CancelEventArgs e)
-        {
-            this.MessageValidation.DateTimePicker(sender, e);
-        }
+       
 
         protected void TextBoxInt32_Validating(object sender, CancelEventArgs e)
         {

@@ -27,6 +27,18 @@ namespace App.Gwin.Fields
             }
         }
 
+        /// <summary>
+        /// Check if Field is Empty or not
+        /// </summary>
+        public override bool isEmpty
+        {
+            get
+            {
+                if (textBoxField.Text == string.Empty) return true;
+                else return false;
+            }
+        }
+
         private bool isMultiline;
         /// <summary>
         /// set is the TexteBow is multiline

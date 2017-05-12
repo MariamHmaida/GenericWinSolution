@@ -12,16 +12,15 @@ namespace App.Gwin
     public partial class BaseEntryForm
     {
 
-        #region Enregistrer et Annuler
+        #region Save and Cancel
         /// <summary>
-        /// Le button d'enregistremnet du formulaire de saisie
+        /// Save Button 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected virtual void btEnregistrer_Click(object sender, EventArgs e)
         {
             // Check is All controls en Form are validate
-
             if (ValidationManager.hasValidationErrors(this.Controls))
                 return;
 
@@ -46,12 +45,7 @@ namespace App.Gwin
 
         }
 
-        private void btAnnuler_Click(object sender, EventArgs e)
-        {
-
-            onAnnulerClick(this, e);
-
-        }
+       
 
         void IBaseEntryForm.Lire()
         {
