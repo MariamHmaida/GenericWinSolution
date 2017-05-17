@@ -1,4 +1,5 @@
 ﻿using App.Gwin.Entities;
+using App.Gwin.Entities.Resources.Glossary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace App.Gwin
         public void AddEntity_Click(object sender, EventArgs e)
         {
             // Return if Add Entity is Allready shwowen
-            if (tabPageAdd.Text != "") return;
+            if (tabPageAdd.Text !=  Glossary.Add) return;
 
             // Show TabAdd Page
             tabPageAdd.Text = this.BLO_Instance.ConfigEntity.AddButton?.Title;
@@ -67,7 +68,7 @@ namespace App.Gwin
         /// </summary>
         private void _EndAdd()
         {
-            tabPageAdd.Text = "";
+            tabPageAdd.Text = Glossary.Add;
             tabPageAdd.Controls.Clear();
             tabControl_MainManager.SelectedTab = TabGrid;
 

@@ -79,7 +79,7 @@ namespace App.Gwin.FieldsTraitements
                 stringField.Width = param.ConfigProperty.EntryForm.WidthControl;
 
             stringField.TabIndex = param.TabIndex;
-            stringField.Text_Label = param.ConfigProperty.DisplayProperty.Titre;
+            stringField.Text_Label = param.ConfigProperty.DisplayProperty.Title;
             stringField.ConfigSizeField();
 
             if (param.ConfigProperty.EntryForm.isRequired)
@@ -142,7 +142,7 @@ namespace App.Gwin.FieldsTraitements
             stringFiled.SizeControl = param.SizeControl;
             stringFiled.OrientationField = Orientation.Horizontal;
             stringFiled.TabIndex = param.TabIndex;
-            stringFiled.Text_Label = param.ConfigProperty.DisplayProperty.Titre;
+            stringFiled.Text_Label = param.ConfigProperty.DisplayProperty.Title;
 
             stringFiled.ConfigSizeField();
             param.FilterContainer.Controls.Add(stringFiled);
@@ -175,7 +175,7 @@ namespace App.Gwin.FieldsTraitements
         {
             param.Column.ValueType = typeof(LocalizedString);
             param.Column.DataPropertyName = param.ConfigProperty.PropertyInfo.Name;
-            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Titre;
+            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Title;
             param.Column.Name = param.ConfigProperty.PropertyInfo.Name;
             param.Column.ReadOnly = true;
             if (param.ConfigProperty.DataGrid?.WidthColonne != 0)

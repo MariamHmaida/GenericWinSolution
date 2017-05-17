@@ -12,6 +12,7 @@ namespace App.Gwin.Entities.ContactInformations
 {
     [GwinEntity(Localizable =true,isMaleName =true,DisplayMember = "Name")]
     [Menu(Group = nameof(MenuItemApplication.ParentsMenuItem.Configuration))]
+    [ManagementForm(Localizable = true,Width = 550,Height = 450)]
     public class Country : BaseEntity
     {
         [EntryForm]

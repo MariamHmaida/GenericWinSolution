@@ -36,17 +36,17 @@ namespace App.Gwin.Entities.Persons
        
        
 
-        [DisplayProperty(Titre = "CIN")]
+        [DisplayProperty(Title = "CIN")]
         [EntryForm(Ordre = 3, GroupeBox = "Civil status", GroupeBoxOrder = 100)]
         [Filter()]
         [DataGrid(WidthColonne = 50)]
         public String CIN { set; get; }
 
-        [DisplayProperty(Titre = "Date de naissance" )]
+        [DisplayProperty(Title = "Date de naissance" )]
         [EntryForm(Ordre = 3, GroupeBox = "Civil status", GroupeBoxOrder = 100)]
         public DateTime DateOfBirth { set; get; }
 
-        [DisplayProperty(Titre = "Sexe")]
+        [DisplayProperty(Title = "Sexe")]
         [EntryForm(Ordre = 3, GroupeBox = "Civil status", GroupeBoxOrder = 100)]
         public bool Sex { set; get; }
        

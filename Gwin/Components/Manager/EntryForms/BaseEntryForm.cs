@@ -19,13 +19,14 @@ using App.Gwin.Application.BAL;
 using App.Gwin.Exceptions.Gwin;
 using App.Gwin.Exceptions.Helpers;
 using App.Gwin.Validation;
+using MetroFramework.Controls;
 
 namespace App.Gwin
 {
     /// <summary>
     /// Formulaire Mère de Saisie, il permet de création des formulaire spécifique à chaque Entity
     /// </summary>
-    public partial class BaseEntryForm : UserControl, IBaseEntryForm
+    public partial class BaseEntryForm : MetroUserControl, IBaseEntryForm
     {
         #region Variables
 
@@ -117,6 +118,7 @@ namespace App.Gwin
             // Init 
             errorProvider.RightToLeft = GwinApp.isRightToLeft;
 
+           
 
             // Params
             this.EntityBLO = EtityBLO;

@@ -72,10 +72,10 @@ namespace App.Gwin.FieldsTraitements
             DataGridViewButtonColumn ButtonColumn = new DataGridViewButtonColumn();
             ButtonColumn.UseColumnTextForButtonValue = true;
             // [Localize]
-            ButtonColumn.Text = Glossary.Update + " : " + param.ConfigProperty.DisplayProperty.Titre;
+            ButtonColumn.Text = Glossary.Update + " : " + param.ConfigProperty.DisplayProperty.Title;
             param.Column = ButtonColumn;
 
-            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Titre;
+            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Title;
             param.Column.Name = param.ConfigProperty.PropertyInfo.Name;
             param.Column.ReadOnly = true;
             if (param.ConfigProperty.DataGrid?.WidthColonne != 0)

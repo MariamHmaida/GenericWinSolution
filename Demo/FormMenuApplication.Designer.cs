@@ -28,21 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMenuApplication));
+            this.btProjectManager = new MetroFramework.Controls.MetroTile();
+            this.btTaskManager = new MetroFramework.Controls.MetroTile();
             this.SuspendLayout();
+            // 
+            // btProjectManager
+            // 
+            this.btProjectManager.ActiveControl = null;
+            resources.ApplyResources(this.btProjectManager, "btProjectManager");
+            this.btProjectManager.Name = "btProjectManager";
+            this.btProjectManager.UseSelectable = true;
+            this.btProjectManager.Click += new System.EventHandler(this.btProjectManager_Click);
+            // 
+            // btTaskManager
+            // 
+            this.btTaskManager.ActiveControl = null;
+            resources.ApplyResources(this.btTaskManager, "btTaskManager");
+            this.btTaskManager.Name = "btTaskManager";
+            this.btTaskManager.UseSelectable = true;
+            this.btTaskManager.Click += new System.EventHandler(this.btTaskManager_Click);
             // 
             // FormMenuApplication
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(572, 320);
-            this.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.btTaskManager);
+            this.Controls.Add(this.btProjectManager);
             this.Name = "FormMenuApplication";
-            this.Text = "Gwin Application";
             this.Load += new System.EventHandler(this.FormMenuApplication_Load);
+            this.Controls.SetChildIndex(this.btProjectManager, 0);
+            this.Controls.SetChildIndex(this.btTaskManager, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+        private MetroFramework.Controls.MetroTile btProjectManager;
+        private MetroFramework.Controls.MetroTile btTaskManager;
     }
 }

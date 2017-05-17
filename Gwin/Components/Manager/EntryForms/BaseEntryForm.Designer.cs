@@ -35,8 +35,8 @@
             this.tabControlForm = new System.Windows.Forms.TabControl();
             this.tabPageForm = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btEnregistrer = new System.Windows.Forms.Button();
-            this.btAnnuler = new System.Windows.Forms.Button();
+            this.btEnregistrer = new MetroFramework.Controls.MetroButton();
+            this.btAnnuler = new MetroFramework.Controls.MetroButton();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -97,18 +97,16 @@
             // btEnregistrer
             // 
             resources.ApplyResources(this.btEnregistrer, "btEnregistrer");
-            this.btEnregistrer.Image = global::App.Gwin.Properties.Resources.save;
             this.btEnregistrer.Name = "btEnregistrer";
-            this.btEnregistrer.UseVisualStyleBackColor = true;
+            this.btEnregistrer.UseSelectable = true;
             this.btEnregistrer.Click += new System.EventHandler(this.btEnregistrer_Click);
             // 
             // btAnnuler
             // 
             resources.ApplyResources(this.btAnnuler, "btAnnuler");
             this.btAnnuler.CausesValidation = false;
-            this.btAnnuler.Image = global::App.Gwin.Properties.Resources.fermer_noir;
             this.btAnnuler.Name = "btAnnuler";
-            this.btAnnuler.UseVisualStyleBackColor = true;
+            this.btAnnuler.UseSelectable = true;
             this.btAnnuler.Click += new System.EventHandler(this.btAnnuler_Click);
             // 
             // errorProvider
@@ -120,6 +118,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.CausesValidation = false;
             this.Controls.Add(this.splitContainer1);
             this.Name = "BaseEntryForm";
@@ -136,13 +135,14 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btAnnuler;
+        private MetroFramework.Controls.MetroButton btAnnuler;
+        
         private System.Windows.Forms.Panel panel1;
         protected System.Windows.Forms.ErrorProvider errorProvider;
         public System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TabPage tabPageForm;
         protected System.Windows.Forms.TabControl tabControlForm;
-        public System.Windows.Forms.Button btEnregistrer;
+        public MetroFramework.Controls.MetroButton btEnregistrer;
         protected System.Windows.Forms.FlowLayoutPanel flowLayoutPanelForm;
     }
 }

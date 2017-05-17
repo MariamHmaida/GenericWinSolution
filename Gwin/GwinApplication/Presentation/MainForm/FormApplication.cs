@@ -97,5 +97,10 @@ namespace App.Gwin.Application.Presentation.MainForm
         {
 
         }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

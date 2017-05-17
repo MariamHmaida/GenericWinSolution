@@ -2,6 +2,7 @@
 using App.Gwin.Application.BAL;
 using App.Gwin.Entities;
 using App.Gwin.GwinApplication.Security.Exception;
+using MetroFramework.Forms;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -34,9 +35,11 @@ namespace App.Gwin.Application.Presentation.EntityManagement
         /// </summary>
         /// <param name="ContextType"></param>
         /// <param name="MdiForm">Mdi form that with MenuApplication</param>
-        public CreateAndShowManagerFormHelper(Type ContextType, IBaseForm MdiForm)
+        public CreateAndShowManagerFormHelper(Type ContextType, IBaseForm ParentForm)
         {
-            if (!((Form)MdiForm).IsMdiContainer) throw new Exception("FormApplicationMdi must be MdiContainer");
+            // Merto FrameWork not support MDI Application
+            // if (!((Form)MdiForm).IsMdiContainer) throw new Exception("FormApplicationMdi must be MdiContainer");
+
             this.MdiForm = MdiForm;
             this.ContextType = ContextType;
         }
@@ -121,29 +124,34 @@ namespace App.Gwin.Application.Presentation.EntityManagement
         {
             try
             {
+
                 Cursor.Current = Cursors.WaitCursor;
-                Form form = ((BaseForm)MdiForm).MdiChildren.Where(f => f.Text == addForm.Text).FirstOrDefault();
-                if (form == null)
-                {
-
-                    GwinApp.SkinEngine.SkinAllForm = true;
-
-
-                    
-                    //addForm.StartPosition = FormStartPosition.WindowsDefaultLocation;
-                    //addForm.WindowState = FormWindowState.Maximized;
-                    addForm.Show();
-                   //  addForm.MdiParent = (Form)MdiForm;
-                }
-                else
-                {
-                    if (form.WindowState == FormWindowState.Maximized)
-                        form.WindowState = FormWindowState.Normal;
-                    else
-                        form.WindowState = FormWindowState.Maximized;
-                }
-
+                addForm.WindowState = FormWindowState.Normal;
+                addForm.ShowDialog();
                 Cursor.Current = Cursors.Default;
+
+
+                // Check if Form is Showne
+                //Form form = ((BaseForm)MdiForm).MdiChildren.Where(f => f.Text == addForm.Text).FirstOrDefault();
+                //if (form == null)
+                //{
+
+                //   // addForm.MdiParent = (MetroForm) MdiForm;
+                //    //addForm.StartPosition = FormStartPosition.WindowsDefaultLocation;
+                //    //addForm.WindowState = FormWindowState.Maximized;
+                //    addForm.Show();
+                //   // addForm.ShowDialog((MetroForm) MdiForm);
+                   
+                //}
+                //else
+                //{
+                //    if (form.WindowState == FormWindowState.Maximized)
+                //        form.WindowState = FormWindowState.Normal;
+                //    else
+                //        form.WindowState = FormWindowState.Maximized;
+                //}
+
+                
             }
             catch (Exception e)
             {

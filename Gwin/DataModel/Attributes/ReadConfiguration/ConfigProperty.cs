@@ -115,25 +115,25 @@ namespace App.Shared.AttributesManager
                 GlossaryResourceManager = new ResourceManager(GlossaryRessouceFullName, typeof(Glossary).Assembly);
                 string title = GlossaryResourceManager.GetString(propertyInfo.Name, this.CultureInfo);
                 if (title == null)
-                    this.DisplayProperty.Titre = this.CultureInfo.Name + "_Glossary_" + propertyInfo.Name;
+                    this.DisplayProperty.Title = this.CultureInfo.Name + "_Glossary_" + propertyInfo.Name;
                 else
-                    this.DisplayProperty.Titre = title;
+                    this.DisplayProperty.Title = title;
             }
             else
             {
                 //
                 // Title
                 //
-                if (this.DisplayProperty.Titre == null)
+                if (this.DisplayProperty.Title == null)
                 {
 
                     if (this.PropertyInfo.PropertyType.IsSubclassOf(typeof(BaseEntity)))
-                        this.DisplayProperty.Titre = ConfigEntity.CreateConfigEntity(this.PropertyInfo.PropertyType).DisplayEntity.SingularName;
+                        this.DisplayProperty.Title = ConfigEntity.CreateConfigEntity(this.PropertyInfo.PropertyType).DisplayEntity.SingularName;
                     else
-                        this.DisplayProperty.Titre = GetStringFromRessource(propertyInfo.Name);
+                        this.DisplayProperty.Title = GetStringFromRessource(propertyInfo.Name);
                 }
                 else
-                    this.DisplayProperty.Titre = GetStringFromRessource(propertyInfo.Name);
+                    this.DisplayProperty.Title = GetStringFromRessource(propertyInfo.Name);
             }
             #endregion
 

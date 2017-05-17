@@ -57,7 +57,7 @@ namespace App.Gwin.FieldsTraitements
             dateTimeField.SizeControl = param.SizeControl;
 
             dateTimeField.TabIndex = param.TabIndex;
-            dateTimeField.Text_Label = param.ConfigProperty.DisplayProperty.Titre;
+            dateTimeField.Text_Label = param.ConfigProperty.DisplayProperty.Title;
             dateTimeField.ConfigSizeField();
 
             // Validation
@@ -123,7 +123,7 @@ namespace App.Gwin.FieldsTraitements
             dateTimeField.SizeControl = param.SizeControl;
             dateTimeField.OrientationField = Orientation.Horizontal;
             dateTimeField.TabIndex = param.TabIndex;
-            dateTimeField.Text_Label = param.ConfigProperty.DisplayProperty.Titre;
+            dateTimeField.Text_Label = param.ConfigProperty.DisplayProperty.Title;
 
             dateTimeField.ConfigSizeField();
             param.FilterContainer.Controls.Add(dateTimeField);
@@ -150,7 +150,7 @@ namespace App.Gwin.FieldsTraitements
             param.Column.ValueType = typeof(DateTime);
              
             param.Column.DataPropertyName = param.ConfigProperty.PropertyInfo.Name;
-            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Titre;
+            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Title;
             param.Column.Name = param.ConfigProperty.PropertyInfo.Name;
             param.Column.ReadOnly = true;
             if (param.ConfigProperty.DataGrid?.WidthColonne != 0)

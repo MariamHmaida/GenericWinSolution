@@ -29,12 +29,12 @@ namespace App.Gwin
 
             if (EntityBLO.Save(this.Entity) > 0)
             {
-                MessageBox.Show(string.Format(ResourceEntryForm.Entity_has_been_properly_registered, this.Entity.ToString()));
+                MetroFramework.MetroMessageBox.Show(this,string.Format(ResourceEntryForm.Entity_has_been_properly_registered, this.Entity.ToString()));
                 onEnregistrerClick(this, e);
             }
             else
             {
-                MessageBox.Show(
+                MetroFramework.MetroMessageBox.Show(this,
                     string.Format(ResourceEntryForm.The_information_is_not_saved_because_there_are_no_changes
                     , this.Entity.ToString())
                     , ResourceEntryForm.There_are_no_changes

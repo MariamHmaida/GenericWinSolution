@@ -62,16 +62,16 @@ namespace App.Gwin
         /// Edit the collection ManyToMany_Creation
         /// Create Instead Manager form of ManyToMany_Creation collection
         /// </summary>
-        private void DataGridControl_EditManyToOneCollection(object sender, EventArgs e)
+        private void DataGridControl_ManyToMany_Creation(object sender, EventArgs e)
         {
             // Init Params
             BaseEntity obj = this.DataGridControl_Instance.SelectedEntity;
             PropertyInfo propertyInfo = this.DataGridControl_Instance.SelectedProperty;
 
-            // Cancel if allready in edition
-            if (tabControlManagers.TabPages.ContainsKey(obj + propertyInfo.Name))
+            // Selected the Tab id allready in edition
+            if (tabControl_MainManager.TabPages.ContainsKey(obj + propertyInfo.Name))
             {
-                tabControlManagers.SelectedTab = tabControlManagers.TabPages[obj + propertyInfo.Name];
+                tabControl_MainManager.SelectedTab = tabControl_MainManager.TabPages[obj + propertyInfo.Name];
                 return;
             }
 
@@ -84,12 +84,15 @@ namespace App.Gwin
             ValeursFiltre[propertyInfo.DeclaringType.Name] = obj.Id;
 
             // Create ManagerFormControl Instance
-            ManagerFormControl form = new ManagerFormControl(service_objet_of_collection, ValeursFiltre, this.MdiParent);
+            ManagerFormControl form = new ManagerFormControl(service_objet_of_collection, ValeursFiltre, this.FrmParent);
+
+
+            
 
             ConfigEntity configEntity = ConfigEntity.CreateConfigEntity(propertyInfo.DeclaringType);
 
             string formTitle = Glossary.Update + " : ";
-            formTitle += new ConfigProperty(propertyInfo, configEntity).DisplayProperty.Titre; // Entity
+            formTitle += new ConfigProperty(propertyInfo, configEntity).DisplayProperty.Title; // Entity
             formTitle += " " + Glossary.For + " ";
             formTitle += obj;
             form.ChangeTabGridTitle(formTitle);
@@ -99,44 +102,32 @@ namespace App.Gwin
 
 
             // Insertion de la gestion à l'interface
-            this.AddManyToOneManager(form, propertyInfo, obj);
+            this.AddMenyToMeny_Creation_to_TabPage(form, propertyInfo, obj);
 
         }
 
         /// <summary>
-        /// Ajouter une gestion ManyToOne à l'interface
+        /// Add and Show ManyToMany_Creation Manager to TabPage 
         /// </summary>
         /// <param name="form"></param>
-        private void AddManyToOneManager(ManagerFormControl form, PropertyInfo item, BaseEntity obj)
+        private void AddMenyToMeny_Creation_to_TabPage(ManagerFormControl form, PropertyInfo item, BaseEntity obj)
         {
 
             // Annotation de l'propriété
-            DisplayPropertyAttribute affichageProperty = new ConfigProperty(item, this.BLO_Instance.ConfigEntity)
+            DisplayPropertyAttribute configProperty = new ConfigProperty(item, this.BLO_Instance.ConfigEntity)
                 .DisplayProperty;
 
+            // Create TabPage  
+            TabPage TabPageManyToManyCreation = new TabPage();
+            TabPageManyToManyCreation.Name = obj + item.Name;
+            TabPageManyToManyCreation.Text = configProperty.Title + " : " + obj;
 
-            // Préparation de l'interface s'il n'est pas encors préparer
-            if (this.tabControlManagers.Visible == false)
-            {
-                this.tabControlManagers.Visible = true;
-                this.tabControl_MainManager.Dock = DockStyle.Fill;
-                this.tabControlManagers.TabPages["main"].Text = this.BLO_Instance.ConfigEntity.ManagementForm.FormTitle;
-                this.tabControlManagers.TabPages["main"].Controls.Add(this.tabControl_MainManager);
-                this.tabControlManagers.Dock = DockStyle.Fill;
-                this.panelDataGrid.Controls.Add(this.tabControlManagers);
-            }
-
-            // Création d'une TabPage dans TabControlManagers
-            TabPage TabPageManyToOne = new TabPage();
-            TabPageManyToOne.Name = obj + item.Name;
-            TabPageManyToOne.Text = affichageProperty.Titre + " : " + obj;
-
-            this.tabControlManagers.TabPages.Add(TabPageManyToOne);
+            this.tabControl_MainManager.TabPages.Add(TabPageManyToManyCreation);
 
             // Insertion du formulaire
             form.Dock = DockStyle.Fill;
-            TabPageManyToOne.Controls.Add(form);
-            this.tabControlManagers.SelectedTab = TabPageManyToOne;
+            TabPageManyToManyCreation.Controls.Add(form);
+            this.tabControl_MainManager.SelectedTab = TabPageManyToManyCreation;
 
         }
 

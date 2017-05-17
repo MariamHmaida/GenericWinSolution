@@ -57,7 +57,7 @@ namespace App.Gwin.FieldsTraitements
             booleanField.SizeLabel = param.SizeLabel;
             booleanField.SizeControl = param.SizeControl;
             booleanField.TabIndex = param.TabIndex;
-            booleanField.Text_Label = param.ConfigProperty.DisplayProperty.Titre;
+            booleanField.Text_Label = param.ConfigProperty.DisplayProperty.Title;
             booleanField.ConfigSizeField();
 
             // Type of Property
@@ -112,7 +112,7 @@ namespace App.Gwin.FieldsTraitements
             booleanField.SizeControl = param.SizeControl;
             booleanField.OrientationField = Orientation.Horizontal;
             booleanField.TabIndex = param.TabIndex;
-            booleanField.Text_Label = param.ConfigProperty.DisplayProperty.Titre;
+            booleanField.Text_Label = param.ConfigProperty.DisplayProperty.Title;
 
             booleanField.ConfigSizeField();
             param.FilterContainer.Controls.Add(booleanField);
@@ -147,7 +147,7 @@ namespace App.Gwin.FieldsTraitements
         {
             param.Column.ValueType = param.ConfigProperty.PropertyInfo.PropertyType;
             param.Column.DataPropertyName = param.ConfigProperty.PropertyInfo.Name;
-            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Titre;
+            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Title;
             param.Column.Name = param.ConfigProperty.PropertyInfo.Name;
             param.Column.ReadOnly = true;
             if (param.ConfigProperty.DataGrid?.WidthColonne != 0)

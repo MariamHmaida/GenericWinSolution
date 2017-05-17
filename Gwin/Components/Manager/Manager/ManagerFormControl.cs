@@ -11,6 +11,7 @@ using App.Gwin.Attributes;
 using App.Gwin.EntityManagement;
 using System.Reflection;
 using App.Gwin.Application.BAL;
+using App.Gwin.Entities.Resources.Glossary;
 
 namespace App.Gwin
 {
@@ -24,9 +25,9 @@ namespace App.Gwin
         /// </summary>
         public IGwinBaseBLO BLO_Instance { set; get; }
         /// <summary>
-        /// Parent MDI Form
+        /// Parent Form
         /// </summary>
-        public Form MdiParent { set; get; }
+        public Form FrmParent { set; get; }
         /// <summary>
         /// DefaultFilterValues to Create Filter an DataGrid componenet
         /// </summary>
@@ -51,32 +52,31 @@ namespace App.Gwin
         /// <param name="Filter_Instance">Filter Instance</param>
         /// <param name="DataGrid_Instance">DataGrid Instance</param>
         /// <param name="DefaultFilterValues">Default Filter Values</param>
-        /// <param name="MdiFormParent">Mdi Parent Form</param>
+        /// <param name="FrmParent">Mdi Parent Form</param>
         public ManagerFormControl(
             IGwinBaseBLO BLO,
             BaseEntryForm EntryForm_Instance,
             BaseFilterControl Filter_Instance,
             GwinDataGridComponent DataGrid_Instance,
             Dictionary<string, object> DefaultFilterValues,
-            Form MdiFormParent)
+            Form FrmParent)
         {
+
             InitializeComponent();
+
+            
+
             // Init Properties values
             this.BLO_Instance = BLO;
             this.EntryForm_Instance = EntryForm_Instance;
             this.Filter_Instance = Filter_Instance;
             this.DataGridControl_Instance = DataGrid_Instance;
             this.DefaultFilterValues = DefaultFilterValues;
-            this.MdiParent = MdiFormParent;
-
-            // Init Main Contrainner
-            this.tabControl_MainManager.Dock = DockStyle.Fill;
-            this.tabControlManagers.Visible = false;
-            this.panelDataGrid.Controls.Add(this.tabControl_MainManager);
+            this.FrmParent = FrmParent;
 
             // Create Entry Form Instance
             if (this.EntryForm_Instance == null) this.EntryForm_Instance = new BaseEntryForm(this.BLO_Instance);
-            
+
             // Create and Init filtre Instance
             if (this.Filter_Instance == null)
                 this.Filter_Instance = new BaseFilterControl(this.BLO_Instance, this.DefaultFilterValues);
@@ -88,15 +88,19 @@ namespace App.Gwin
             if (this.DataGridControl_Instance == null)
                 this.DataGridControl_Instance = new GwinDataGridComponent(this.BLO_Instance, this.DefaultFilterValues);
             this.DataGridControl_Instance.Dock = DockStyle.Fill;
-            this.tabControl_MainManager.TabPages["TabGrid"].Controls.Add(this.DataGridControl_Instance);
+             panelDataGrid.Controls.Add(this.DataGridControl_Instance);
+            panelDataGrid.CreateControl();
             this.DataGridControl_Instance.EditClick += DataGridControl_EditClick;
-            this.DataGridControl_Instance.EditManyToMany_Creation += DataGridControl_EditManyToOneCollection;
+            this.DataGridControl_Instance.EditManyToMany_Creation += DataGridControl_ManyToMany_Creation;
 
             // Update Titles
             this.Name = nameof(ManagerFormControl) + this.BLO_Instance.TypeEntity.ToString();
             this.Text = this.BLO_Instance.ConfigEntity.ManagementForm.FormTitle;
             this.tabPageAdd.ToolTipText = this.BLO_Instance.ConfigEntity.AddButton.Title;
             this.tabControl_MainManager.TabPages["TabGrid"].Text = this.BLO_Instance.ConfigEntity.ManagementForm.TitrePageGridView;
+
+            // TagAdd Title
+            this.tabControl_MainManager.TabPages["tabPageAdd"].Text = Glossary.Add;
         }
         /// <summary>
         /// Constructor
@@ -106,7 +110,7 @@ namespace App.Gwin
         /// <param name="MdiFormParent">Mdi Parent Form</param>
         public ManagerFormControl(IGwinBaseBLO BLO,
             Dictionary<string, object> DefaultFilterValues, Form MdiFormParent)
-            : this(BLO, null,null,null, DefaultFilterValues, MdiFormParent)
+            : this(BLO, null, null, null, DefaultFilterValues, MdiFormParent)
         { }
         /// <summary>
         /// RefreshData with filter information
@@ -126,23 +130,25 @@ namespace App.Gwin
             if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
                 this.RefreshData();
 
+            // Move Code to Constructor
             // Change Direction of TabControlMainManager
             // Change Form Direction  - When  Languauge is changed
-            if (GwinApp.Instance.CultureInfo.TwoLetterISOLanguageName == "fr" || GwinApp.Instance.CultureInfo.TwoLetterISOLanguageName == "en")
-            {
-                tabControl_MainManager.RightToLeftLayout = false;
-                tabControl_MainManager.RightToLeft = RightToLeft.No;
-            }
-            else
+            if (GwinApp.isRightToLeft)
             {
                 tabControl_MainManager.RightToLeftLayout = true;
                 tabControl_MainManager.RightToLeft = RightToLeft.Yes;
+               
+            }
+            else
+            {
+                tabControl_MainManager.RightToLeftLayout = false;
+                tabControl_MainManager.RightToLeft = RightToLeft.No;
             }
         }
         private void EntityManagementForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Fix Problem : Close form with cas validation 
-            // bevause the form dont want be closed if the validation is active
+            // because the form dont want be closed if the validation is active
             e.Cancel = false;
         }
 

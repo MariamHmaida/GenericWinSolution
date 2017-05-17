@@ -24,14 +24,13 @@ namespace App.Gwin
         {
             if (visible == true) throw new NotImplementedException("Cette méthode n'est pas implémenter pour la valeur True");
 
+           
             this.Controls.Add(panelDataGrid);
-
-            this.panelDataGrid.Dock = DockStyle.Fill;
-            this.tabControl_MainManager.Dock = DockStyle.Fill;
-            // this.panelDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            //| System.Windows.Forms.AnchorStyles.Left)
-            //| System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Visible = visible;
+            this.TabGrid.Controls.Clear();
+            this.TabGrid.Controls.Add(panelDataGrid);
+            
+           
+           
         }
     }
 }

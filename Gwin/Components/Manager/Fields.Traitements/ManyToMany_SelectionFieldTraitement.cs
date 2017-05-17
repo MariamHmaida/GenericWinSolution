@@ -76,7 +76,7 @@ namespace App.Gwin.FieldsTraitements
             {
                 TabPage tabPage = new TabPage();
                 tabPage.Name = "tabPage" + param.PropertyInfo.Name;
-                tabPage.Text = param.ConfigProperty.DisplayProperty.Titre;
+                tabPage.Text = param.ConfigProperty.DisplayProperty.Title;
                 param.TabControlForm.TabPages.Add(tabPage);
                 param.ConteneurFormulaire = tabPage;
             }
@@ -161,7 +161,7 @@ namespace App.Gwin.FieldsTraitements
         {
             param.Column.ValueType = typeof(String);
             param.Column.DataPropertyName = param.ConfigProperty.PropertyInfo.Name;
-            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Titre;
+            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Title;
             param.Column.Name = param.ConfigProperty.PropertyInfo.Name;
             param.Column.ReadOnly = true;
             if (param.ConfigProperty.DataGrid?.WidthColonne != 0)

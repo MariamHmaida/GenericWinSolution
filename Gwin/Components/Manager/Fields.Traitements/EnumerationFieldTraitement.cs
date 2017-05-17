@@ -55,7 +55,7 @@ namespace App.Gwin.FieldsTraitements
             comboBoxField.SizeLabel = param.SizeLabel;
             comboBoxField.SizeControl = param.SizeControl;
             comboBoxField.TabIndex = param.TabIndex;
-            comboBoxField.Text_Label = param.ConfigProperty.DisplayProperty.Titre;
+            comboBoxField.Text_Label = param.ConfigProperty.DisplayProperty.Title;
             comboBoxField.ConfigSizeField();
 
             // DataSource
@@ -103,7 +103,7 @@ namespace App.Gwin.FieldsTraitements
             comboBoxField.SizeControl = param.SizeControl;
             comboBoxField.OrientationField = Orientation.Horizontal;
             comboBoxField.TabIndex = param.TabIndex;
-            comboBoxField.Text_Label = param.ConfigProperty.DisplayProperty.Titre;
+            comboBoxField.Text_Label = param.ConfigProperty.DisplayProperty.Title;
             comboBoxField.ConfigSizeField();
 
             // DataSource
@@ -137,7 +137,7 @@ namespace App.Gwin.FieldsTraitements
         {
             param.Column.ValueType = param.ConfigProperty.PropertyInfo.PropertyType;
             param.Column.DataPropertyName = param.ConfigProperty.PropertyInfo.Name;
-            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Titre;
+            param.Column.HeaderText = param.ConfigProperty.DisplayProperty.Title;
             param.Column.Name = param.ConfigProperty.PropertyInfo.Name;
             param.Column.ReadOnly = true;
             if (param.ConfigProperty.DataGrid?.WidthColonne != 0)

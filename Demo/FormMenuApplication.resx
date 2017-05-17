@@ -117,4 +117,75 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btProjectManager.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 104</value>
+  </data>
+  <data name="btProjectManager.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 87</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btProjectManager.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="btProjectManager.Text" xml:space="preserve">
+    <value>Project Manager</value>
+  </data>
+  <data name="&gt;&gt;btProjectManager.Name" xml:space="preserve">
+    <value>btProjectManager</value>
+  </data>
+  <data name="&gt;&gt;btProjectManager.Type" xml:space="preserve">
+    <value>MetroFramework.Controls.MetroTile, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
+  </data>
+  <data name="&gt;&gt;btProjectManager.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btProjectManager.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btTaskManager.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 197</value>
+  </data>
+  <data name="btTaskManager.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 81</value>
+  </data>
+  <data name="btTaskManager.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="btTaskManager.Text" xml:space="preserve">
+    <value>Task Manager</value>
+  </data>
+  <data name="&gt;&gt;btTaskManager.Name" xml:space="preserve">
+    <value>btTaskManager</value>
+  </data>
+  <data name="&gt;&gt;btTaskManager.Type" xml:space="preserve">
+    <value>MetroFramework.Controls.MetroTile, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
+  </data>
+  <data name="&gt;&gt;btTaskManager.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btTaskManager.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>778, 392</value>
+  </data>
+  <data name="$this.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Gwin Application</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FormMenuApplication</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>App.Gwin.Application.Presentation.MainForm.FormApplication, GwinApp, Version=0.0.1.3, Culture=neutral, PublicKeyToken=null</value>
+  </data>
 </root>

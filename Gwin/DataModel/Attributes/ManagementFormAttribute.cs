@@ -34,10 +34,7 @@ namespace App.Gwin.Attributes
         public string FormTitle { get; set; }
         public string TitreButtonAjouter { get; set; }
         public string TitrePageGridView { get; set; }
-
-        
-
-
-
+        public int Width { get; set; }
+        public int Height { get; set; }
     }
 }

@@ -25,15 +25,15 @@ namespace App.Gwin.Attributes
 
 
         /// <summary>
-        /// Indique le nom à afficher
+        /// Displayed name
         /// </summary>
-        public string Titre { set; get; }
+        public string Title { set; get; }
         /// <summary>
-        /// Indique la description à afficher
+        /// Description
         /// </summary>
         public string Description { set; get; }
         /// <summary>
-        /// Le nom de la propriété à afficher dans ComBoBox
+        /// DisplayMember in ComBoBox
         /// </summary>
         public string DisplayMember { get; set; }
         #endregion

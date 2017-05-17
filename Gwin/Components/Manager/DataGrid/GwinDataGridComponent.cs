@@ -20,6 +20,7 @@ using App.Gwin.Exceptions.Gwin;
 using App.Gwin.Exceptions.Helpers;
 using App.Gwin.Components.Manager.DataGrid;
 using App.Gwin.Application.Presentation.EntityManagement;
+using MetroFramework;
 
 namespace App.Gwin
 {
@@ -185,7 +186,7 @@ namespace App.Gwin
             // Delete Clikc
             if (e.ColumnIndex == dataGridView.Columns["Supprimer"].Index && e.RowIndex >= 0)
             {
-                if (DialogResult.Yes == MessageBox.Show(
+                if (DialogResult.Yes == MetroMessageBox.Show(this,
                     "Voullez-vous vraimment supprimer :" + obj.ToString(),
                     "Confirmation de supprision", MessageBoxButtons.YesNo))
                 {

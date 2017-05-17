@@ -77,8 +77,8 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.menuStrip1);
-            this.IsMdiContainer = true;
             this.Name = "FormApplication";
+            this.TransparencyKey = System.Drawing.Color.Empty;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormApplication_Load);
             this.menuStrip1.ResumeLayout(false);

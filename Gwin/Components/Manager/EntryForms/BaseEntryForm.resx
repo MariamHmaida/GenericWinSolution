@@ -148,7 +148,7 @@
     <value>10, 10, 10, 10</value>
   </data>
   <data name="flowLayoutPanelForm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>295, 175</value>
+    <value>459, 288</value>
   </data>
   <data name="flowLayoutPanelForm.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -237,11 +237,8 @@
   <data name="btEnregistrer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
-  <data name="btEnregistrer.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
   <data name="btEnregistrer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
+    <value>3, 21</value>
   </data>
   <data name="btEnregistrer.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 31</value>
@@ -252,14 +249,11 @@
   <data name="btEnregistrer.Text" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
-  <data name="btEnregistrer.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
   <data name="&gt;&gt;btEnregistrer.Name" xml:space="preserve">
     <value>btEnregistrer</value>
   </data>
   <data name="&gt;&gt;btEnregistrer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>MetroFramework.Controls.MetroButton, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
   </data>
   <data name="&gt;&gt;btEnregistrer.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -270,11 +264,8 @@
   <data name="btAnnuler.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
   </data>
-  <data name="btAnnuler.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
   <data name="btAnnuler.Location" type="System.Drawing.Point, System.Drawing">
-    <value>574, 9</value>
+    <value>738, 21</value>
   </data>
   <data name="btAnnuler.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 31</value>
@@ -285,14 +276,11 @@
   <data name="btAnnuler.Text" xml:space="preserve">
     <value>Annuler</value>
   </data>
-  <data name="btAnnuler.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
   <data name="&gt;&gt;btAnnuler.Name" xml:space="preserve">
     <value>btAnnuler</value>
   </data>
   <data name="&gt;&gt;btAnnuler.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>MetroFramework.Controls.MetroButton, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
   </data>
   <data name="&gt;&gt;btAnnuler.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -307,7 +295,7 @@
     <value>0, 0</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>647, 48</value>
+    <value>811, 73</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -337,10 +325,10 @@
     <value>1</value>
   </data>
   <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>647, 296</value>
+    <value>811, 434</value>
   </data>
   <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
-    <value>244</value>
+    <value>357</value>
   </data>
   <data name="splitContainer1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -367,7 +355,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>647, 296</value>
+    <value>811, 434</value>
   </data>
   <data name="&gt;&gt;errorProvider.Name" xml:space="preserve">
     <value>errorProvider</value>
@@ -379,7 +367,7 @@
     <value>BaseEntryForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>MetroFramework.Controls.MetroUserControl, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
   </data>
   <data name="errorProvider.RightToLeft" type="System.Boolean, mscorlib">
     <value>True</value>

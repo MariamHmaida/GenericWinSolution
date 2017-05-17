@@ -6,6 +6,8 @@
 -Right to Lift in Filter not work for Arabe Langauge
 -Exception after saveCahgne after delete Project with Task
 
+Mov [SelectionCriteria(typeof(Country))] to Property
+
 //
 // Upgrade
 //

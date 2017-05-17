@@ -47,7 +47,7 @@ namespace App.Gwin.Components.Authentication
                
             else
             {
-                MessageBox.Show("Login or Password is incorrect");
+                MetroFramework.MetroMessageBox.Show(this, "Login or Password is incorrect");
             }
         }
 

@@ -104,7 +104,7 @@ namespace App.Gwin.Fields
             if (PropertyInfo != null)
                 this.configProperty = new ConfigProperty(PropertyInfo, this.ConfigEntity);
 
-            this.Text_Label = this.configProperty.DisplayProperty.Titre;
+            this.Text_Label = this.configProperty.DisplayProperty.Title;
 
             // Create Instance of PrivateFilter
             this.SelectionFilterManager = new SelectionFilterManager(this.EntityBAO,

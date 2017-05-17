@@ -8,6 +8,7 @@ using App.Gwin.Entities.Application;
 using App.Gwin.Entities.Secrurity.Authentication;
 using GenericWinForm.Demo.BAL;
 using GenericWinForm.Demo.DAL;
+using GenericWinForm.Demo.Entities;
 using SplashScreen;
 using System;
 using System.Windows.Forms;
@@ -35,15 +36,25 @@ namespace GenericWinForm.Demo
 
         }
 
-        ///// <summary>
-        ///// Reload the form after language change
-        ///// </summary>
-        //public override void Reload()
-        //{
-        //    base.Reload();
-        //    InitializeComponent();
-        //}
+        /// <summary>
+        /// Reload the form after language change
+        /// </summary>
+        public override void Reload()
+        {
+            base.Reload();
+            InitializeComponent();
+        }
 
+        private void btProjectManager_Click(object sender, EventArgs e)
+        {
+            CreateAndShowManagerFormHelper ShowManagementFormHelper = new CreateAndShowManagerFormHelper(GwinApp.Instance.TypeDBContext, this);
+            ShowManagementFormHelper.ShowManagerForm(typeof(Project));
+        }
 
+        private void btTaskManager_Click(object sender, EventArgs e)
+        {
+            CreateAndShowManagerFormHelper ShowManagementFormHelper = new CreateAndShowManagerFormHelper(GwinApp.Instance.TypeDBContext, this);
+            ShowManagementFormHelper.ShowManagerForm(typeof(TaskProject));
+        }
     }
 }

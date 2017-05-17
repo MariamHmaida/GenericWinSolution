@@ -17,7 +17,7 @@ namespace GenericWinForm.Demo.Entities
     /// </summary>
     [GwinEntity(Localizable =true,DisplayMember = nameof(TaskProject.Title))]
     [Menu]
-    [ManagementForm(FormTitle = "form_title")]
+    [ManagementForm(Localizable = true, FormTitle = "form_title", Width = 900, Height = 600)]
     [BusinesRole]
     public class TaskProject : BaseEntity
     {
