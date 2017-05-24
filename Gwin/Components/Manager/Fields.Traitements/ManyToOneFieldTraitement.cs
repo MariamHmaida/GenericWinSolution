@@ -58,7 +58,7 @@ namespace App.Gwin.FieldsTraitements
             ManyToOneField manyToOneField = new ManyToOneField(param.EntityBLO, param.PropertyInfo,
                param.ConteneurFormulaire, param.OrientationField,
                param.SizeLabel,
-                param.SizeControl, InitValue, param.ConfigProperty.ConfigEntity
+                param.SizeControl, InitValue, param.ConfigProperty.ConfigEntity, param.Entity
                 );
 
             manyToOneField.Location = param.Location;
@@ -105,7 +105,7 @@ namespace App.Gwin.FieldsTraitements
                 Orientation.Horizontal,
                  param.SizeLabel,
                  param.SizeControl,
-                 default_value, param.ConfigProperty.ConfigEntity
+                 default_value, param.ConfigProperty.ConfigEntity,param.Entity
                 );
             manyToOneField.Name = param.ConfigProperty.PropertyInfo.Name;
             manyToOneField.TabIndex = param.TabIndex;

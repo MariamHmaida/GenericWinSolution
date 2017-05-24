@@ -13,6 +13,7 @@ using App.Gwin;
 using static System.Net.Mime.MediaTypeNames;
 using App.Gwin.Application.Presentation.MainForm;
 using GenericWinForm.Demo.DAL;
+using GenericWinForm.Demo.Entities.ProjectManager;
 
 namespace GenericWinForm.Demo.BAL.Tests
 {

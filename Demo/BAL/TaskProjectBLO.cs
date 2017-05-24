@@ -10,6 +10,7 @@ using App.Gwin.GwinApplication.Security.Attributes;
 using App.Gwin.FieldsTraitements;
 using App.Shared.AttributesManager;
 using App.Gwin.Logging;
+using GenericWinForm.Demo.Entities.ProjectManager;
 
 namespace GenericWinForm.Demo.BAL
 {

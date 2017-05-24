@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Windows.Forms;
 
 namespace App.Gwin.Fields
@@ -9,12 +10,12 @@ namespace App.Gwin.Fields
     /// <summary>
     /// Base Field 
     /// </summary>
-    public partial class BaseField : UserControl, IBaseField
+    public partial class BaseField : UserControl, IBaseField, ISerializable
     {
 
         #region Events
         /// <summary>
-        /// Value is changed
+        /// Value changed
         /// </summary>
         public event EventHandler ValueChanged;
         protected void onValueChanged(object sender, EventArgs e)
@@ -38,6 +39,7 @@ namespace App.Gwin.Fields
         /// PropertyInfo
         /// </summary>
         public PropertyInfo PropertyInfo { set; get; }
+
         /// <summary>
         /// The value of field
         /// </summary>
@@ -68,6 +70,10 @@ namespace App.Gwin.Fields
         /// </summary>
         public string Text_Label
         {
+            get
+            {
+                return this.labelField.Text;
+            }
             set
             {
                 this.labelField.Text = value;
@@ -113,6 +119,10 @@ namespace App.Gwin.Fields
         /// </summary>
         public bool AutoSizeConfig { get; set; }
 
+        /// <summary>
+        /// Shwen order in Container
+        /// </summary>
+        public int Order { set; get; }
         #endregion
 
         #region Constructeurs
@@ -122,11 +132,16 @@ namespace App.Gwin.Fields
         public BaseField()
         {
             InitializeComponent();
-            AutoSizeConfig = true;
-            this.StopAutoSizeConfig();
-            this.SizeLabel = new Size(100, 20);
-            this.SizeControl = new Size(100, 20);
-            this.StartAutoSizeConfig();
+
+            if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
+            {
+                AutoSizeConfig = true;
+                this.StopAutoSizeConfig();
+                this.SizeLabel = new Size(100, 20);
+                this.SizeControl = new Size(100, 20);
+                this.StartAutoSizeConfig();
+            }
+               
         }
         #endregion
 
@@ -191,5 +206,11 @@ namespace App.Gwin.Fields
                 this.splitContainer.SplitterDistance = this.SizeLabel.Height;
             }
         }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+          //  throw new NotImplementedException();
+        }
+
     }
 }

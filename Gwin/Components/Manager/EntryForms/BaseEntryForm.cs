@@ -20,59 +20,77 @@ using App.Gwin.Exceptions.Gwin;
 using App.Gwin.Exceptions.Helpers;
 using App.Gwin.Validation;
 using MetroFramework.Controls;
+using App.Gwin.Components.Manager.EntryForms.PLL;
 
 namespace App.Gwin
 {
     /// <summary>
-    /// Formulaire Mère de Saisie, il permet de création des formulaire spécifique à chaque Entity
+    /// Entry Form
     /// </summary>
     public partial class BaseEntryForm : MetroUserControl, IBaseEntryForm
     {
-        #region Variables
 
-
-
+        #region Data Variables
         /// <summary>
-        /// Indique si les champs seront automatiquement générer ou manuellement implémenter 
-        /// par la classe Hérité
-        /// </summary>
-        [Obsolete]
-        bool AutoGenerateField { set; get; }
-
-        /// <summary>
-        /// à supprimer , utilisez Service
-        /// </summary>
-        protected DbContext context { get; set; }
-        /// <summary>
-        /// Obtient ou définire l'entité représenté par cette formulaire
+        /// Entity Instance
         /// </summary>
         public BaseEntity Entity { get; set; }
 
         /// <summary>
-        /// l'instance de service de la gestion en cours
-        /// 
+        /// Config Entity Instance
+        /// </summary>
+        public ConfigEntity ConfigEntity { get; set; }
+
+        /// <summary>
+        /// Filter Values
+        /// </summary>
+        protected Dictionary<string, object> FilterValues { set; get; }
+        #endregion
+
+        #region Business Variables
+        /// <summary>
+        /// BLO Instance
         /// </summary> 
         public IGwinBaseBLO EntityBLO { get; set; }
+        #endregion
+
+        #region Presentation Variables
 
         /// <summary>
-        /// Message da validation des champs de la formulire
+        /// Presentation Logic Object
         /// </summary>
-        protected MessageValidation MessageValidation;
-        /// <summary>
-        /// Indicate if the form is generated
-        /// </summary>
-        private bool isGeneratedForm { get; set; }
+        protected IGwinPLO EntityPLO { set; get; }
 
         /// <summary>
-        /// Indique le controle qui contient la formulaire
+        /// Form Container
         /// </summary>
         protected Control ConteneurFormulaire { get; set; }
 
         /// <summary>
-        /// Critères de recherche selectioné dans le filtre
+        /// Used in Generate Form to show Groups Box
         /// </summary>
-        protected Dictionary<string, object> CritereRechercheFiltre { set; get; }
+        public FlowLayoutPanel flowLayoutPanelForm = null;
 
+        /// <summary>
+        /// List of Field in Form
+        /// </summary>
+        public  Dictionary<string, BaseField> Fields { set; get; }
+
+        /// <summary>
+        /// List of Groupes Boexes in Form
+        /// </summary>
+        public Dictionary<string, GroupBox> GroupsBoxes { set; get; }
+
+
+        bool AutoGenerateField { set; get; }
+
+        /// <summary>
+        /// Validation Messages
+        /// </summary>
+        protected MessageValidation MessageValidation;
+        #endregion
+
+        #region WorkFlox Variables
         /// <summary>
         /// Indique si la saisie des valeurs provient de l'étape de l'initialisation 
         /// de la formulaire
@@ -82,12 +100,13 @@ namespace App.Gwin
         public bool isStepInitializingValues { get; set; }
 
         /// <summary>
-        /// Config Entity
+        /// Indicate if the form is generated
         /// </summary>
-        public ConfigEntity ConfigEntity { get; set; }
+        private bool isGeneratedForm { get; set; }
+
         #endregion
 
-        #region Evénements
+        #region Events
         public event EventHandler EnregistrerClick;
         public event EventHandler AnnulerClick;
         protected void onEnregistrerClick(Object sender, EventArgs e)
@@ -102,9 +121,12 @@ namespace App.Gwin
 
         #region Constructeurs
         /// <summary>
-        /// Entry form
+        /// Create Entry form instance
         /// </summary>
         /// <param name="EtityBLO"></param>
+        /// <param name="entity"></param>
+        /// <param name="critereRechercheFiltre"></param>
+        /// <param name="AutoGenerateField"></param>
         public BaseEntryForm(
             IGwinBaseBLO EtityBLO,
             BaseEntity entity,
@@ -112,44 +134,41 @@ namespace App.Gwin
             bool AutoGenerateField)
         {
             InitializeComponent();
-
-            CheckPramIsNull.CheckParam_is_NotNull(EtityBLO, this, nameof(EtityBLO));
-
-            // Init 
             errorProvider.RightToLeft = GwinApp.isRightToLeft;
 
-           
-
-            // Params
-            this.EntityBLO = EtityBLO;
-
-            this.Entity = entity;
-            this.CritereRechercheFiltre = critereRechercheFiltre;
-            this.AutoGenerateField = AutoGenerateField;
-            this.ConfigEntity = ConfigEntity.CreateConfigEntity(this.EntityBLO.TypeEntity);
-
-            // Les valeus par défaux
-            this.isStepInitializingValues = false;
-            this.MessageValidation = new MessageValidation(errorProvider);
-
-
-            // Préparation de l'objet Entity
-            if (this.EntityBLO != null && this.Entity == null)
-                this.Entity = (BaseEntity)EtityBLO.CreateEntityInstance();
-            if ((this.Entity == null || this.Entity.Id == 0) && this.CritereRechercheFiltre != null)
-                this.InitialisationEntityParCritereRechercheFiltre();
-
-            // Conteneurs du formulaire
-            this.ConteneurFormulaire = this.flowLayoutPanelForm;
-
-            // Génération du Formulaire
-            if (this.AutoGenerateField)
+            if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
             {
-                if (this.ConfigEntity == null)
-                {
-                    this.ConfigEntity = ConfigEntity.CreateConfigEntity(this.EntityBLO.TypeEntity);
-                }
+                CheckPramIsNull.CheckParam_is_NotNull(EtityBLO, this, nameof(EtityBLO));
 
+                // Init Variables
+                this.EntityBLO = EtityBLO;
+                this.Entity = entity;
+                this.FilterValues = critereRechercheFiltre;
+                this.AutoGenerateField = AutoGenerateField;
+                this.ConfigEntity = ConfigEntity.CreateConfigEntity(this.EntityBLO.TypeEntity);
+
+                // Default values
+                this.ConteneurFormulaire = FlowLayoutContainer;
+                this.isStepInitializingValues = false;
+                this.MessageValidation = new MessageValidation(errorProvider);
+                this.Fields = new Dictionary<string, BaseField>();
+                this.GroupsBoxes = new Dictionary<string, GroupBox>();
+     
+                // Create PLO Instance if PLO exist
+                if(this.EntityPLO == null && this.ConfigEntity.PresentationLogic != null)
+                {
+                    this.EntityPLO = (IGwinPLO) Activator.CreateInstance(this.ConfigEntity.PresentationLogic.TypePLO);
+                }
+                    
+
+                // Create or Config Entity Instance
+                if (this.EntityBLO != null && this.Entity == null)
+                    this.Entity = (BaseEntity)EtityBLO.CreateEntityInstance();
+                if ((this.Entity == null || this.Entity.Id == 0) && this.FilterValues != null)
+                    this.InitialisationEntityParCritereRechercheFiltre();
+
+                // Create Field in Form
+                this.CreateFieldIfNotGenerated();
             }
 
         }
@@ -183,7 +202,7 @@ namespace App.Gwin
                 string NomPropriete = item.Name;
 
                 // Continue si une valeur de cette propriété existe dans le filtre
-                if (!this.CritereRechercheFiltre.ContainsKey(item.Name))
+                if (!this.FilterValues.ContainsKey(item.Name))
                     continue;
 
 
@@ -191,20 +210,20 @@ namespace App.Gwin
                 {
                     typeEntity
                          .GetProperty(item.Name)
-                         .SetValue(this.Entity, this.CritereRechercheFiltre[item.Name].ToString());
+                         .SetValue(this.Entity, this.FilterValues[item.Name].ToString());
                 }
                 if (typePropriete.Name == "Int32")
                 {
                     typeEntity
                          .GetProperty(item.Name)
-                         .SetValue(this.Entity, Convert.ToInt32(this.CritereRechercheFiltre[item.Name]));
+                         .SetValue(this.Entity, Convert.ToInt32(this.FilterValues[item.Name]));
                 }
 
                 if (typePropriete.Name == "DateTime")
                 {
                     typeEntity
                         .GetProperty(item.Name)
-                        .SetValue(this.Entity, Convert.ToDateTime(this.CritereRechercheFiltre[item.Name]));
+                        .SetValue(this.Entity, Convert.ToDateTime(this.FilterValues[item.Name]));
                 }
 
 
@@ -212,7 +231,7 @@ namespace App.Gwin
                 {
                     BaseEntity valeur_filtre = this.EntityBLO
                         .CreateServiceBLOInstanceByTypeEntity(item.PropertyType)
-                        .GetBaseEntityByID(Convert.ToInt64(this.CritereRechercheFiltre[item.Name]));
+                        .GetBaseEntityByID(Convert.ToInt64(this.FilterValues[item.Name]));
                     typeEntity.GetProperty(NomPropriete).SetValue(this.Entity, valeur_filtre);
                 }
             }
@@ -228,12 +247,7 @@ namespace App.Gwin
         /// <param name="e"></param>
         public void BaseEntryForm_Load(object sender, EventArgs e)
         {
-            // Génération du Formulaire
-
-
-            this.CreateFieldIfNotGenerated();
-
-
+            
         }
 
 
@@ -269,7 +283,7 @@ namespace App.Gwin
             return formilaire;
         }
         /// <summary>
-        /// Création d'une instance comme cette formulaire
+        /// Create Instance as this EntryForm
         /// </summary>
         /// <returns></returns>
         public virtual BaseEntryForm CreateInstance(IGwinBaseBLO Service, BaseEntity entity, Dictionary<string, object> CritereRechercheFiltre)
@@ -328,11 +342,16 @@ namespace App.Gwin
 
         }
 
-        
+
         private void btAnnuler_Click(object sender, EventArgs e)
         {
 
             onAnnulerClick(this, e);
+
+        }
+
+        private void panel_form_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

@@ -2,8 +2,9 @@
 using System;
 using System.Windows.Forms;
 using System.Drawing;
+using App.Gwin.Fields;
 
-namespace App.Gwin.Fields.Tests
+namespace GwinTest.Components.Fields
 {
     [TestClass()]
     public class StringFieldTests

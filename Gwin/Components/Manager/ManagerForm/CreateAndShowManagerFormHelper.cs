@@ -122,8 +122,7 @@ namespace App.Gwin.Application.Presentation.EntityManagement
         /// <param name="addForm">Entity Management Form instance  </param>
         public void ShwoForm(Form addForm)
         {
-            try
-            {
+          
 
                 Cursor.Current = Cursors.WaitCursor;
                 addForm.WindowState = FormWindowState.Normal;
@@ -152,12 +151,7 @@ namespace App.Gwin.Application.Presentation.EntityManagement
                 //}
 
                 
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-
-            }
+          
 
 
         }

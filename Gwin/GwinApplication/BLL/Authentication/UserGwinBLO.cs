@@ -14,8 +14,6 @@ namespace App.Gwin.Application.BAL.Authentication
     public class UserGwinBLO
     {
 
-        User UserInstance = null;
-
         /// <summary>
         /// Create Guest User
         /// </summary>

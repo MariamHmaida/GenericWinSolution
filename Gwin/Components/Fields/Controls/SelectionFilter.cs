@@ -11,35 +11,109 @@ using App.Gwin.Entities;
 using System.Collections;
 using App.Gwin.Application.BAL;
 using App.Gwin.Exceptions.Gwin;
+using App.Shared.AttributesManager;
 
 namespace App.Gwin.Fields.Controls
 {
     /// <summary>
-    /// Manage the the selection filter of Filed
+    /// Manage the the selection filter of Field
     /// </summary>
     public class SelectionFilterManager
     {
-        #region Params
-        private Orientation OrientationFiled;
+        #region Presentation variables
         /// <summary>
-        /// Indicate if the selection filter has somme CombBox filter
+        /// Le conteneur de l'interface, our que le Filed ajoute son filtre personnelle à l'interface 
+        /// sous Forme des Field avant son Field
         /// </summary>
-        public bool isHasFilter;
-
+        public Control MainContainner { set; get; }
+        private Orientation OrientationFiled;
         public Size SizeLabel { get; private set; }
         public Size SizeControl { get; private set; }
-        public ConfigEntity ConfigEntity { get; private set; }
-
+        public string DisplayMember { get; set; }
+        public string ValueMember { get; set; }
         #endregion
 
-        #region Propriété
+        #region Business Variables
+        private IGwinBaseBLO Service { set; get; }
         /// <summary>
-        /// Obient  la valeur de filtre
+        /// Le champs accepte une des valeurs pardéfaut pour chaque ComboBox de son filtre 
+        /// personnel
+        /// </summary>
+        Int64 DefaultValues { set; get; }
+        /// <summary>
+        /// Lite des ComboBox 
+        /// </summary>
+        public Dictionary<string, ManyToOneField> ListeComboBox { set; get; }
+
+        /// <summary>
+        /// Liste des Types de critère 
+        /// </summary>
+        Dictionary<string, Type> LsiteTypeObjetCritere { set; get; }
+
+        Dictionary<string, Int64> ListeValeursInitiaux { set; get; }
+        #endregion
+
+        #region WorkFlow variables
+        /// <summary>
+        /// Indique si le programme en état de changement de la vlaeurs pardéfaut du champs
+        /// dans cette étape il aura l'éxécution seulement des événement d'initialisation
+        /// et les événement de changement des valeurs ne seront pas exécuter
+        /// </summary>
+        public bool StopEventSelectedIndexChange { get; private set; }
+        #endregion
+
+        #region Gwin variables
+        public ConfigProperty ConfigProperty { get; set; }
+        #endregion
+
+        #region Events
+        public event EventHandler ValueChanged;
+        protected void onValueChaned(object sender, EventArgs e)
+        {
+            if (ValueChanged != null)
+                ValueChanged(sender, e);
+        }
+        #endregion
+
+        #region Constructeur
+        public SelectionFilterManager(
+            IGwinBaseBLO Service,
+            ConfigProperty ConfigProperty,
+            Control MainContainner,
+            Size SizeLabel,
+            Size SizeControl,
+            Orientation OrientationFiled,
+            Int64 DefaultValue
+            )
+        {
+            this.ConfigProperty = ConfigProperty;
+            this.MainContainner = MainContainner;
+            this.SizeLabel = SizeLabel;
+            this.SizeControl = SizeControl;
+            this.OrientationFiled = OrientationFiled;
+
+            this.Service = Service;
+            this.ListeComboBox = new Dictionary<string, ManyToOneField>();
+            this.ListeValeursInitiaux = new Dictionary<string, long>();
+            this.LsiteTypeObjetCritere = new Dictionary<string, Type>();
+
+            if (this.ConfigProperty.SelectionCriteria != null)
+                InitInterface();
+
+            CalculeValeursInitiaux((Int64)DefaultValue);
+            ViewingData();
+        }
+        #endregion
+
+
+        #region Get and Set Filter Value
+        /// <summary>
+        /// Set and Get Filter values
         /// </summary>
         /// 
         public object Value
         {
-           
+
             get
             {
 
@@ -52,97 +126,28 @@ namespace App.Gwin.Fields.Controls
                 ViewingData();
             }
         }
-        public BaseEntity ValueEntity 
+
+        /// <summary>
+        /// Get Selected Filter Entity
+        /// </summary>
+        public BaseEntity ValueEntity
         {
             get
             {
+                if (ListeComboBox.Count > 0)
 
-                return ListeComboBox.Last().Value.SelectedItem as BaseEntity;
+                    return ListeComboBox.Last().Value.SelectedItem as BaseEntity;
+                else
+                {
+                    return null;
+                }
             }
         }
 
 
 
-        /// <summary>
-        /// Le champs accepte une des valeurs pardéfaut pour chaque ComboBox de son filtre 
-        /// personnel
-        /// </summary>
-        Int64 DefaultValues { set; get; }
-
-        #endregion
-
-        #region Variables
-
-        private IGwinBaseBLO Service { set; get; }
-        /// <summary>
-        /// Indique si le programme en état de changement de la vlaeurs pardéfaut du champs
-        /// dans cette étape il aura l'éxécution seulement des événement d'initialisation
-        /// et les événement de changement des valeurs ne seront pas exécuter
-        /// </summary>
-        public bool StopEventSelectedIndexChange { get; private set; }
 
 
-        /// <summary>
-        /// Le conteneur de l'interface, our que le Filed ajoute son filtre personnelle à l'interface 
-        /// sous Forme des Field avant son Field
-        /// </summary>
-        public Control MainContainner { set; get; }
-
-        #endregion
-
-        #region Critères
-        /// <summary>
-        /// Lite des ComboBox 
-        /// </summary>
-        Dictionary<string, ManyToOneField> ListeComboBox { set; get; }
-
-        /// <summary>
-        /// Liste des Types de critère 
-        /// </summary>
-        Dictionary<string, Type> LsiteTypeObjetCritere { set; get; }
-
-        Dictionary<string, Int64> ListeValeursInitiaux { set; get; }
-        public string DisplayMember { get; set; }
-        public string ValueMember { get; set; }
-        public PropertyInfo PropertyInfo { get; set; }
-
-
-        #endregion
-
-        #region Evénement
-        public event EventHandler ValueChanged;
-        protected void onValueChaned(object sender, EventArgs e)
-        {
-            if (ValueChanged != null)
-                ValueChanged(sender, e);
-        }
-        #endregion
-
-        #region Constructeur
-        public SelectionFilterManager(
-            IGwinBaseBLO Service,
-            PropertyInfo PropertyInfo,
-            Control MainContainner,
-            Size SizeLabel,
-             Size SizeControl,
-              Orientation OrientationFiled,
-             ConfigEntity ConfigEntity
-            )
-        {
-            this.PropertyInfo = PropertyInfo;
-            this.MainContainner = MainContainner;
-            this.SizeLabel = SizeLabel;
-            this.SizeControl = SizeControl;
-            this.OrientationFiled = OrientationFiled;
-            this.ConfigEntity = ConfigEntity;
-
-            this.Service = Service;
-            this.ListeComboBox = new Dictionary<string, ManyToOneField>();
-            this.ListeValeursInitiaux = new Dictionary<string, long>();
-            this.LsiteTypeObjetCritere = new Dictionary<string, Type>();
-
-            InitInterface();
-        }
         #endregion
 
         #region InitInterface
@@ -156,47 +161,23 @@ namespace App.Gwin.Fields.Controls
             this.DisplayMember = "";
             this.ValueMember = "Id";
 
-            if (this.PropertyInfo.PropertyType.GetGenericArguments().Count() == 0)
-            {
-                string msg_exception = "The Type :" + this.PropertyInfo.PropertyType.Name;
-                msg_exception += " of member " + this.PropertyInfo.Name;
-                msg_exception += " in Entity " + this.PropertyInfo.DeclaringType.Name;
-                msg_exception += " is not a valid generic List";
-                throw new GwinException(msg_exception);
-            }
-               
-            Attribute selectionCriteriaAttribute = this.PropertyInfo.PropertyType.GetGenericArguments()[0]
-                .GetCustomAttribute(typeof(SelectionCriteriaAttribute));
 
-            if (selectionCriteriaAttribute == null) return;
-
-
-            SelectionCriteriaAttribute MetaSelectionCriteria =
-              (SelectionCriteriaAttribute)selectionCriteriaAttribute;
-
-            if(MetaSelectionCriteria == null)
-            {
-                this.isHasFilter = false;
-            }else
-            {
-                this.isHasFilter = true;
-            }
-
-       
             int index = 10;
 
             // Si un objet du critère de selection exite dans la classe 
             // Nous cherchons sa valeur pour l'utiliser
-            foreach (Type item in MetaSelectionCriteria.Criteria)
+            foreach (Type item in this.ConfigProperty.SelectionCriteria.CriteriasTypes)
             {
                 // Meta information d'affichage du de Critère
                 GwinEntityAttribute DisplayEntityAttributeCritere = (GwinEntityAttribute)item.GetCustomAttribute(typeof(GwinEntityAttribute));
 
+                // Size Filter Item
+                Size SizeControlFilter = new Size(this.SizeControl.Width, 25);
 
                 ManyToOneField manyToOneFilter = new ManyToOneField(this.Service, item, null, null,
                     this.OrientationFiled,
                      this.SizeLabel,
-                    this.SizeControl, 0, this.ConfigEntity
+                    SizeControlFilter, 0, this.ConfigProperty.ConfigEntity, this.ValueEntity
                     );
                 manyToOneFilter.Name = item.Name;
                 //manyToOneFilter.Size = new System.Drawing.Size(this.widthField, this.HeightField);
@@ -248,8 +229,8 @@ namespace App.Gwin.Fields.Controls
                     ListeValeursInitiaux.Add(ListeComboBox.Keys.ElementAt(i), 0);
                 }
             // Init la de la vlaeur de comboBox Actuel
-            if(ListeValeursInitiaux.Count > 0)
-            ListeValeursInitiaux[ListeValeursInitiaux.Last().Key] = Value;
+            if (ListeValeursInitiaux.Count > 0)
+                ListeValeursInitiaux[ListeValeursInitiaux.Last().Key] = Value;
 
             IGwinBaseBLO curentService = this.Service
                   .CreateServiceBLOInstanceByTypeEntity(LsiteTypeObjetCritere[ListeValeursInitiaux.Last().Key]);
@@ -331,6 +312,7 @@ namespace App.Gwin.Fields.Controls
                 {
                     ls_source = PropertyContenantValeursComboSuivant.GetValue(EntiteActuel) as IList;
 
+                   
 
                     // Initalisation avec la valeur par défaux s'il existe
                     if (this.ListeValeursInitiaux != null && this.ListeValeursInitiaux.Keys.Contains(keyNexComboBox))
@@ -358,7 +340,8 @@ namespace App.Gwin.Fields.Controls
                         comboBox_suivant2.DataSource = null;
                         comboBox_suivant2.TextCombobox = "";
                     }
-            }else
+            }
+            else
             {
                 // si la selection de dernier ComboBox on lance l'événement ValueChanged
                 onValueChaned(this, null);
@@ -366,7 +349,7 @@ namespace App.Gwin.Fields.Controls
         }
 
 
-      
+
         /// <summary>
         /// Affichage des données dans les ComboBox
         /// </summary>
@@ -381,17 +364,24 @@ namespace App.Gwin.Fields.Controls
                 .CreateServiceBLOInstanceByTypeEntity(LsiteTypeObjetCritere[key]);
 
 
+            IList ls_source =  service.GetAll();
+
+            // Add Black Value if requorid
+            if (this.ConfigProperty?.EntryForm?.isDefaultIsEmpty == true || this.ConfigProperty?.Filter?.isDefaultIsEmpty == true)
+                ls_source.Insert(0, new EmptyEntity());
+
             // Initalisation avec la valeur par défaux s'il existe
             if (this.ListeValeursInitiaux != null && this.ListeValeursInitiaux.Keys.Contains(key))
             {
                 this.StopEventSelectedIndexChange = true;
-                comboBox.DataSource = service.GetAll();
+                comboBox.DataSource = ls_source;
                 this.StopEventSelectedIndexChange = false;
                 comboBox.SelectedValue = this.ListeValeursInitiaux[key];
             }
             else
             {
-                comboBox.DataSource = service.GetAll();
+
+                comboBox.DataSource = ls_source;
             }
 
         }

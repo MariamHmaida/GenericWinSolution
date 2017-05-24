@@ -22,7 +22,7 @@ namespace App.Gwin.Components.Manager.EntryForms.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ResourceEntryForm {
+    public class ResourceEntryForm {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace App.Gwin.Components.Manager.EntryForms.Resources {
         ///   Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("App.Gwin.Components.Manager.EntryForms.Resources.ResourceEntryForm", typeof(ResourceEntryForm).Assembly);
@@ -51,7 +51,7 @@ namespace App.Gwin.Components.Manager.EntryForms.Resources {
         ///   les recherches de ressources à l'aide de cette classe de ressource fortement typée.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace App.Gwin.Components.Manager.EntryForms.Resources {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à &apos;{0}&apos; has been properly registered.
         /// </summary>
-        internal static string Entity_has_been_properly_registered {
+        public static string Entity_has_been_properly_registered {
             get {
                 return ResourceManager.GetString("Entity_has_been_properly_registered", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace App.Gwin.Components.Manager.EntryForms.Resources {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à The information is not saved because there are no changes.
         /// </summary>
-        internal static string The_information_is_not_saved_because_there_are_no_changes {
+        public static string The_information_is_not_saved_because_there_are_no_changes {
             get {
                 return ResourceManager.GetString("The_information_is_not_saved_because_there_are_no_changes", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace App.Gwin.Components.Manager.EntryForms.Resources {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à There are no changes.
         /// </summary>
-        internal static string There_are_no_changes {
+        public static string There_are_no_changes {
             get {
                 return ResourceManager.GetString("There_are_no_changes", resourceCulture);
             }

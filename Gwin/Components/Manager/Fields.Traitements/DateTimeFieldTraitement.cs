@@ -2,7 +2,7 @@
 using App.Gwin.Fields;
 using App.Gwin.Components.Manager.Fields.Traitements.Params;
 using App.Shared.AttributesManager;
-using App.WinForm.Fields;
+using App.Components.Fields;
 using System;
 using System.Collections.Generic;
 using System.Linq;

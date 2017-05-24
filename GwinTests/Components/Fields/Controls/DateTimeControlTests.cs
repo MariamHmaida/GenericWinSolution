@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace App.Gwin.Fields.Controls.Tests
+namespace GwinTest.Components.Fields.Controls
 {
     [TestClass()]
     public class DateTimeControlTests

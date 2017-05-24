@@ -124,7 +124,7 @@
     <value>Date de création</value>
   </data>
   <data name="DateModification" xml:space="preserve">
-    <value>Date de mise à jour</value>
+    <value>Date de modification</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -173,5 +173,8 @@
   </data>
   <data name="Entering_this_field_is_mandatory" xml:space="preserve">
     <value>La saisie de ce champs est obligatoire</value>
+  </data>
+  <data name="management_of" xml:space="preserve">
+    <value>Gestion des</value>
   </data>
 </root>

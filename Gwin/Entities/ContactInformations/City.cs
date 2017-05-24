@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace App.Gwin.Entities.ContactInformations
 {
     [GwinEntity(Localizable =true, isMaleName = false,DisplayMember = "Name")]
-    [Menu(Group = nameof(MenuItemApplication.ParentsMenuItem.Configuration))]
+    [Menu(Group = nameof(MenuItemApplication.ParentsMenuItem.Configuration),Order = 100)]
     [SelectionCriteria(typeof(Country))]
     public class City : BaseEntity
     {
@@ -27,7 +27,7 @@ namespace App.Gwin.Entities.ContactInformations
 
         [DisplayProperty(isInGlossary = true)]
         [EntryForm]
-        [Filter(isValeurFiltreVide =true)]
+        [Filter(isDefaultIsEmpty =true)]
         [DataGrid]
         [Relationship(Relation = RelationshipAttribute.Relations.ManyToOne)]
         public virtual Country Country { set; get; }

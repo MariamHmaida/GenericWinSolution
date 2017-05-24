@@ -1,6 +1,6 @@
 ﻿using App.Gwin.Fields.Controls;
 
-namespace App.WinForm.Fields
+namespace App.Components.Fields
 {
     partial class DateTimeField
     {

@@ -3,8 +3,9 @@ using System;
 using System.Reflection;
 using System.Drawing;
 using System.Windows.Forms;
+using App.Gwin.Fields;
 
-namespace App.Gwin.Fields.Tests
+namespace GwinTest.Components.Fields
 {
     [TestClass()]
     public class Int32FiledTests

@@ -119,7 +119,7 @@ namespace App.Gwin.FieldsTraitements
             List<string> ls_data_string = ls_data.Cast<Object>().Select(o => o.ToString()).ToList<string>();
 
             // Add Blank Data 
-            if (param.ConfigProperty.Filter.isValeurFiltreVide)
+            if (param.ConfigProperty.Filter.isDefaultIsEmpty)
                 ls_data_string.Insert(0, "");
             stringFiled.DataSource = ls_data_string.ToList<object>();
 

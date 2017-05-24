@@ -3,8 +3,9 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Reflection;
+using App.Components.Fields;
 
-namespace App.WinForm.Fields.Tests
+namespace GwinTest.Components.Fields
 {
     [TestClass()]
     public class DateTimeFieldTests

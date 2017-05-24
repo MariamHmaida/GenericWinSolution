@@ -174,4 +174,7 @@
   <data name="Entering_this_field_is_mandatory" xml:space="preserve">
     <value>إدخال هذا المجال إلزامي</value>
   </data>
+  <data name="management_of" xml:space="preserve">
+    <value>تدبير</value>
+  </data>
 </root>

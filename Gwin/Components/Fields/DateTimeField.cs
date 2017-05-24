@@ -2,7 +2,7 @@
 using System;
 using System.Drawing;
 
-namespace App.WinForm.Fields
+namespace App.Components.Fields
 {
     public partial class DateTimeField : App.Gwin.Fields.BaseField
     {

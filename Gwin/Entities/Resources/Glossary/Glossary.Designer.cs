@@ -142,6 +142,15 @@ namespace App.Gwin.Entities.Resources.Glossary {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Management.
+        /// </summary>
+        internal static string management_of {
+            get {
+                return ResourceManager.GetString("management_of", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Name.
         /// </summary>
         internal static string Name {

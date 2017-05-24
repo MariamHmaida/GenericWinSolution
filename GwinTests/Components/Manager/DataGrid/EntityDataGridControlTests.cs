@@ -14,6 +14,7 @@ using App.Gwin.Entities;
 using App.Gwin.Exceptions.Gwin;
 using System.Reflection;
 using GenericWinForm.Demo.DAL;
+using GenericWinForm.Demo.Entities.ProjectManager;
 
 namespace App.Gwin.Tests
 {

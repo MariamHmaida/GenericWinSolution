@@ -144,6 +144,9 @@
   <data name="For" xml:space="preserve">
     <value>for</value>
   </data>
+  <data name="management_of" xml:space="preserve">
+    <value>Management</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>

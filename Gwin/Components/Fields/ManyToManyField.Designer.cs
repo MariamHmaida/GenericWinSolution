@@ -41,7 +41,7 @@
             // 
             this.splitContainer.Panel2.Controls.Add(this.listBoxChoices);
             this.splitContainer.Size = new System.Drawing.Size(374, 534);
-            this.splitContainer.SplitterDistance = 28;
+            this.splitContainer.SplitterDistance = 27;
             // 
             // listBoxChoices
             // 
@@ -50,7 +50,7 @@
             this.listBoxChoices.Location = new System.Drawing.Point(0, 0);
             this.listBoxChoices.Name = "listBoxChoices";
             this.listBoxChoices.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listBoxChoices.Size = new System.Drawing.Size(374, 502);
+            this.listBoxChoices.Size = new System.Drawing.Size(374, 503);
             this.listBoxChoices.TabIndex = 1;
             // 
             // ManyToManyField

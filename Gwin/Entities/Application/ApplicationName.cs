@@ -30,6 +30,5 @@ namespace App.Gwin.Entities.Application
         [Filter]
         [DataGrid]
         public LocalizedString Description { set; get; }
-        public string Reference { get; set; }
     }
 }

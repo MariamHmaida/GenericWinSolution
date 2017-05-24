@@ -72,41 +72,58 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BAL\BaseBLO.cs" />
+    <Compile Include="BAL\ProjectBLO.cs" />
     <Compile Include="BAL\Security\RoleBAO.cs" />
     <Compile Include="BAL\TaskProjectBLO.cs" />
     <Compile Include="BAL\UserBLO.cs" />
     <Compile Include="DAL\Configuration.cs" />
     <Compile Include="DAL\LocalDB.cs" />
     <Compile Include="DAL\ModelContext.cs" />
-    <Compile Include="Entities\Resources\Project\Project.ar.Designer.cs">
+    <Compile Include="Entities\ProjectManager\Class1.cs" />
+    <Compile Include="Entities\ProjectManager\Resources\Project\Project.ar.Designer.cs">
       <DependentUpon>Project.ar.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Entities\Resources\Project\Project.Designer.cs">
+    <Compile Include="Entities\ProjectManager\Resources\Project\Project.Designer.cs">
       <DependentUpon>Project.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Entities\Resources\TaskProject\TaskProject.ar.Designer.cs">
+    <Compile Include="Entities\ProjectManager\Resources\TaskProject\TaskProject.ar.Designer.cs">
       <DependentUpon>TaskProject.ar.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Entities\Resources\TaskProject\TaskProject.fr.Designer.cs">
+    <Compile Include="Entities\ProjectManager\Resources\TaskProject\TaskProject.fr.Designer.cs">
       <DependentUpon>TaskProject.fr.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Entities\TaskCategory.cs" />
-    <Compile Include="Entities\TaskProject.cs" />
+    <Compile Include="Entities\ProjectManager\TaskCategory.cs" />
+    <Compile Include="Entities\ProjectManager\TaskProject.cs" />
     <Compile Include="Entities\Individual.cs" />
-    <Compile Include="Entities\Project.cs" />
-    <Compile Include="Entities\Resources\TaskProject\TaskProject.Designer.cs">
+    <Compile Include="Entities\ProjectManager\Project.cs" />
+    <Compile Include="Entities\ProjectManager\Resources\TaskProject\TaskProject.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TaskProject.resx</DependentUpon>
     </Compile>
+    <Compile Include="Entities\TraineeManagement\Class1.cs" />
+    <Compile Include="Entities\TraineeManagement\Group.cs" />
+    <Compile Include="Entities\TraineeManagement\Resources\Group\Group.ar.Designer.cs" />
+    <Compile Include="Entities\TraineeManagement\Resources\Group\Group.Designer.cs" />
+    <Compile Include="Entities\TraineeManagement\Resources\Group\Group.fr.Designer.cs" />
+    <Compile Include="Entities\TraineeManagement\Resources\Trainee\Trainee.ar.Designer.cs" />
+    <Compile Include="Entities\TraineeManagement\Resources\Trainee\Trainee.Designer.cs" />
+    <Compile Include="Entities\TraineeManagement\Resources\Trainee\Trainee.fr.Designer.cs" />
+    <Compile Include="Entities\TraineeManagement\Trainee.cs" />
+    <Compile Include="Entities\TrainingManagement\Class1.cs" />
+    <Compile Include="Entities\TrainingManagement\Module.cs" />
+    <Compile Include="Entities\TrainingManagement\Resources\Specialty\Specialty.ar.Designer.cs" />
+    <Compile Include="Entities\TrainingManagement\Resources\Specialty\Specialty.Designer.cs" />
+    <Compile Include="Entities\TrainingManagement\Resources\Specialty\Specialty.fr.Designer.cs" />
+    <Compile Include="Entities\TrainingManagement\Specialty.cs" />
     <Compile Include="FormMenuApplication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,24 +138,37 @@
     <Compile Include="Migrations\201705120935128_Update1.Designer.cs">
       <DependentUpon>201705120935128_Update1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705220834100_Update2.cs" />
+    <Compile Include="Migrations\201705220834100_Update2.Designer.cs">
+      <DependentUpon>201705220834100_Update2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705230853577_Update4.cs" />
+    <Compile Include="Migrations\201705230853577_Update4.Designer.cs">
+      <DependentUpon>201705230853577_Update4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705230932440_Update5.cs" />
+    <Compile Include="Migrations\201705230932440_Update5.Designer.cs">
+      <DependentUpon>201705230932440_Update5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\ProjectManager\ProjectForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Presentation\ProjectManager\ProjectForm.Designer.cs">
+      <DependentUpon>ProjectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\ProjectManager\ProjectManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Presentation\ProjectManager\ProjectManagerForm.Designer.cs">
       <DependentUpon>ProjectManagerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\ProjectManager\ProjetView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Presentation\ProjectManager\ProjetView.Designer.cs">
-      <DependentUpon>ProjetView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Presentation\TaskProjectManager\FormPrintTaskProject.cs">
+    <Compile Include="Presentation\ProjectManager\FormPrintTaskProject.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\TaskProjectManager\FormPrintTaskProject.Designer.cs">
+    <Compile Include="Presentation\ProjectManager\FormPrintTaskProject.Designer.cs">
       <DependentUpon>FormPrintTaskProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\TraineeManagement\GroupPLO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="PrivateApplicationMenu.cs">
       <SubType>Form</SubType>
@@ -147,26 +177,35 @@
       <DependentUpon>PrivateApplicationMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Entities\Resources\Project\Project.ar.resx">
+    <EmbeddedResource Include="Entities\ProjectManager\Resources\Project\Project.ar.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Project.ar.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Entities\Resources\Project\Project.resx">
+    <EmbeddedResource Include="Entities\ProjectManager\Resources\Project\Project.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Project.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Entities\Resources\TaskProject\TaskProject.ar.resx">
+    <EmbeddedResource Include="Entities\ProjectManager\Resources\TaskProject\TaskProject.ar.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TaskProject.ar.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Entities\Resources\TaskProject\TaskProject.fr.resx">
+    <EmbeddedResource Include="Entities\ProjectManager\Resources\TaskProject\TaskProject.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TaskProject.fr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Entities\Resources\TaskProject\TaskProject.resx">
+    <EmbeddedResource Include="Entities\ProjectManager\Resources\TaskProject\TaskProject.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TaskProject.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Entities\TraineeManagement\Resources\Group\Group.ar.resx" />
+    <EmbeddedResource Include="Entities\TraineeManagement\Resources\Group\Group.fr.resx" />
+    <EmbeddedResource Include="Entities\TraineeManagement\Resources\Group\Group.resx" />
+    <EmbeddedResource Include="Entities\TraineeManagement\Resources\Trainee\Trainee.ar.resx" />
+    <EmbeddedResource Include="Entities\TraineeManagement\Resources\Trainee\Trainee.fr.resx" />
+    <EmbeddedResource Include="Entities\TraineeManagement\Resources\Trainee\Trainee.resx" />
+    <EmbeddedResource Include="Entities\TrainingManagement\Resources\Specialty\Specialty.ar.resx" />
+    <EmbeddedResource Include="Entities\TrainingManagement\Resources\Specialty\Specialty.fr.resx" />
+    <EmbeddedResource Include="Entities\TrainingManagement\Resources\Specialty\Specialty.resx" />
     <EmbeddedResource Include="FormMenuApplication.ar.resx">
       <DependentUpon>FormMenuApplication.cs</DependentUpon>
     </EmbeddedResource>
@@ -182,13 +221,25 @@
     <EmbeddedResource Include="Migrations\201705120935128_Update1.resx">
       <DependentUpon>201705120935128_Update1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705220834100_Update2.resx">
+      <DependentUpon>201705220834100_Update2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705230853577_Update4.resx">
+      <DependentUpon>201705230853577_Update4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705230932440_Update5.resx">
+      <DependentUpon>201705230932440_Update5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\ProjectManager\ProjectForm.ar.resx">
+      <DependentUpon>ProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\ProjectManager\ProjectForm.resx">
+      <DependentUpon>ProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\ProjectManager\ProjectManagerForm.resx">
       <DependentUpon>ProjectManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\ProjectManager\ProjetView.resx">
-      <DependentUpon>ProjetView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\TaskProjectManager\FormPrintTaskProject.resx">
+    <EmbeddedResource Include="Presentation\ProjectManager\FormPrintTaskProject.resx">
       <DependentUpon>FormPrintTaskProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrivateApplicationMenu.resx">
@@ -219,6 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DAL\Migrations\" />
+    <Folder Include="Entities\Resources\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gwin\Gwin.csproj">

@@ -162,7 +162,7 @@ namespace App.Gwin
         protected void CalculatesDefaultValues()
         {
             if (MetaSelectionCriteria == null) return;
-            foreach (Type item in MetaSelectionCriteria.Criteria)
+            foreach (Type item in MetaSelectionCriteria.CriteriasTypes)
             {
                 // Trouver si la classe de critère de filtre existe déja comme Membre 
                 // de la classe qui déclare la collection
@@ -177,7 +177,7 @@ namespace App.Gwin
 
                         // si la critère a une valeur par défaut
                         // on cherche les valeurs par défaut des critère précédent 
-                        int index = MetaSelectionCriteria.Criteria.ToList().IndexOf(item);
+                        int index = MetaSelectionCriteria.CriteriasTypes.ToList().IndexOf(item);
                         ValeurParen(index, BaseEntityValue);
 
                     }
@@ -191,7 +191,7 @@ namespace App.Gwin
         public void ValeurParen(int index, BaseEntity BaseEntityValue)
         {
             if (index == 0) return;
-            Type type_prent = MetaSelectionCriteria.Criteria[index-1];
+            Type type_prent = MetaSelectionCriteria.CriteriasTypes[index-1];
             PropertyInfo propertyInfoParent = BaseEntityValue.GetType().GetProperties().Where(p => p.Name == type_prent.Name).SingleOrDefault();
 
             if (propertyInfoParent == null) throw new PropertyDoesNotExistException(type_prent.Name + "Dans " + BaseEntityValue.GetType());
@@ -227,7 +227,7 @@ namespace App.Gwin
             int y = 20;
             // Si un objet du critère de selection exite dans la classe 
             // Nous cherchons sa valeur pour l'utiliser
-            foreach (Type item in MetaSelectionCriteria.Criteria)
+            foreach (Type item in MetaSelectionCriteria.CriteriasTypes)
             {
                 // Meta information d'affichage du de Critère
                  GwinEntityAttribute MetaAffichageClasseCritere = (GwinEntityAttribute)item.GetCustomAttribute(typeof(GwinEntityAttribute));

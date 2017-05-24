@@ -27,7 +27,7 @@ namespace App.Gwin.Entities.Secrurity.Autorizations
         /// <summary>
         /// Entity Name : NameSpace.EntityName
         /// </summary>
-        [Filter(WidthControl = 400, isValeurFiltreVide = true)]
+        [Filter(WidthControl = 400, isDefaultIsEmpty = true)]
         [EntryForm(WidthControl = 400)]
         [DataGrid(WidthColonne = 400)]
         [ReferencesDataSource(TypeObject = typeof(GwinEntitiesManager),

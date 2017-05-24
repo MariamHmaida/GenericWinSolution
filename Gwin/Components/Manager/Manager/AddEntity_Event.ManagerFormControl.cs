@@ -33,6 +33,9 @@ namespace App.Gwin
             tabPageAdd.Text = this.BLO_Instance.ConfigEntity.AddButton?.Title;
             tabControl_MainManager.CausesValidation = false;
             tabControl_MainManager.SelectedTab = tabPageAdd;
+            // Fix MetroFrameWork Scrol TabPage Bug 
+            this.tabControl_MainManager.TabPages["tabPageAdd"].CreateControl();
+            
 
             // Create EntryForm Instance
             BaseEntity Entity = (BaseEntity)this.BLO_Instance.CreateEntityInstance();

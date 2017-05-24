@@ -2,6 +2,7 @@
 using App.Gwin.Entities;
 using App.Gwin.Entities.Persons;
 using App.Gwin.GwinApplication.Security.Attributes;
+using GenericWinForm.Demo.Entities.ProjectManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,9 +1,11 @@
 ﻿namespace App.Migrations
 {
+    using App.Gwin.Entities;
     using App.Gwin.Entities.ContactInformations;
     using App.Gwin.Entities.Secrurity.Authentication;
     using GenericWinForm.Demo.DAL;
     using GenericWinForm.Demo.Entities;
+    using GenericWinForm.Demo.Entities.ProjectManager;
     using Gwin;
     using Gwin.Application.BAL;
     using Gwin.Entities.Application;
@@ -60,8 +62,9 @@
             RoleAdmin = context.Roles.Where(r => r.Reference == nameof(Role.Roles.Admin)).SingleOrDefault();
 
             // 
-            // Giwn Autorizations
+            // Autorizations
             //
+
             // Guest Autorization
             Authorization FindUserAutorization = new Authorization();
             FindUserAutorization.BusinessEntity = typeof(User).FullName;
@@ -90,14 +93,19 @@
    
             context.SaveChanges();
 
-            //-- Giwn Users
+            //
+            // Default Data
+            //
+
+            // Users data
             context.Users.AddOrUpdate(
                 u => u.Reference,
                 new User() { Reference = nameof(User.Users.Root), Login = nameof(User.Users.Root), Password = nameof(User.Users.Root), LastName = new LocalizedString() { Current = nameof(User.Users.Root) }, Roles = new List<Role>() { RoleRoot } },
                 new User() { Reference = nameof(User.Users.Admin), Login = nameof(User.Users.Admin), Password = nameof(User.Users.Admin), LastName = new LocalizedString() { Current = nameof(User.Users.Admin) }, Roles = new List<Role>() { RoleAdmin } },
                 new User() { Reference = nameof(User.Users.Guest), Login = nameof(User.Users.Guest), Password = nameof(User.Users.Guest), LastName = new LocalizedString() { Current = nameof(User.Users.Guest) }, Roles = new List<Role>() { RoleGuest } }
                 );
-            //-- Gwin  Menu
+
+            // Menu data
             context.MenuItemApplications.AddOrUpdate(
                             r => r.Code
                          ,
@@ -107,9 +115,8 @@
                        );
 
             //---------------------------------------------------------
-            // Sport Club Management System
+            // Demo Autorization
             //---------------------------------------------------------
-
 
             // Autorization
             Authorization ProjectAutorization = new Authorization();
@@ -126,33 +133,14 @@
 
             context.SaveChanges();
 
-            // Gwin Test Default Values
-            context.EntityMiniConfigs.AddOrUpdate(
-                 o => o.Id
-              ,
-              new TaskProject
-              {
-                  Id = 1,
-                  StartDate = DateTime.Now,
-                  Project = new Project() { Id = 1, Title = "Entity_OneToMany" },
-                  Categoy = TaskCategory.Analysis,
-                  DaysNumber = 3,
-                  Title = new Gwin.Entities.MultiLanguage.LocalizedString() { French = "Create Uses Cases Diagrame" },
-     
-                  Description = new Gwin.Entities.MultiLanguage.LocalizedString() { Arab = "تحليل وظيفي", French = "Create UML Uses Cases Diagrams for Club Management system" },
-                  
-                  LocalizedTitle = new Gwin.Entities.MultiLanguage.LocalizedString() { Arab = "تحليل وظيفي", French = "Analyse fonctionnelle" },
-                  Peoples = new List<Individual>() {
-                      new Individual() { LastName = new LocalizedString() {Current = "Mouad" },FirstName = new LocalizedString() {Current = "Madani"} }, 
-                      new Individual() { LastName = new LocalizedString() {Current = "Mouad" }  ,FirstName = new LocalizedString() {Current = "Kamal" } }
-                  },
-                  Responsibles = new List<Individual>() {
-                      new Individual() { LastName = new LocalizedString() {Current = "Mouana"} , FirstName =new LocalizedString() {Current = "Chami"}  },
-                      new Individual() { LastName = new LocalizedString() {Current = "Kamal"}, FirstName =new LocalizedString() {Current = "Chami"}  }
-                  },
-              }
-
-            );
+            // Default Data
+            foreach (var item in new ModelContext().GetTypesSets())
+            {
+                BaseEntity entity = Activator.CreateInstance(item) as BaseEntity;
+                entity.Seed(context);
+                context.SaveChanges();
+            }
+           
         }
     }
 }

@@ -13,6 +13,7 @@ using App.Gwin.Application.Presentation.MainForm;
 using App.Gwin;
 using GenericWinForm.Demo.BAL;
 using GenericWinForm.Demo.DAL;
+using GenericWinForm.Demo.Entities.ProjectManager;
 
 namespace App.Shared.AttributesManager.Tests
 {

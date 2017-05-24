@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace App.Gwin.Entities.ContactInformations
 {
     [GwinEntity(Localizable =true,isMaleName =true,DisplayMember = "Name")]
-    [Menu(Group = nameof(MenuItemApplication.ParentsMenuItem.Configuration))]
+    [Menu(Group = nameof(MenuItemApplication.ParentsMenuItem.Configuration),Order = 101)]
     [ManagementForm(Localizable = true,Width = 550,Height = 450)]
     public class Country : BaseEntity
     {

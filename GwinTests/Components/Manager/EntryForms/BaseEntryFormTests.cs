@@ -16,6 +16,7 @@ using App.Gwin.DataModel.ModelInfo;
 using App.Shared.AttributesManager;
 using App.Gwin.FieldsTraitements;
 using GenericWinForm.Demo.DAL;
+using GenericWinForm.Demo.Entities.ProjectManager;
 
 namespace App.Gwin.Tests
 {

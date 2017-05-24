@@ -14,7 +14,7 @@ using App.Shared.AttributesManager;
 using App.Gwin.Entities;
 using System.Resources;
 using App.Gwin.Shared.Resources;
-using App.WinForm.Fields;
+using App.Components.Fields;
 using System.Collections;
 using App.Gwin.Components.Manager.Fields.Traitements.Params;
 using App.Gwin.FieldsTraitements;
